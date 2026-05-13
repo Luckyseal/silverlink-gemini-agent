@@ -35,7 +35,10 @@ class ConversationMemory {
     while (_serializedLength(turns) > _kMaxTurnChars && turns.length > 2) {
       turns.removeAt(0);
     }
-    await _prefs.setString(_kTurnsKey, jsonEncode(turns.map((e) => e.toJson()).toList()));
+    await _prefs.setString(
+      _kTurnsKey,
+      jsonEncode(turns.map((e) => e.toJson()).toList()),
+    );
   }
 
   Future<void> clear() => _prefs.remove(_kTurnsKey);
@@ -45,8 +48,14 @@ class ConversationMemory {
     final turns = loadTurns();
     if (turns.isEmpty) return '';
     final lines = <String>[];
-    for (final t in turns.reversed.take(8).toList().reversed) {
-      final prefix = t.role == 'user' ? '利用者' : 'SilverLink';
+    for (final t in turns.reversed.take(10).toList().reversed) {
+      final prefix = switch (t.role) {
+        'user' => '利用者',
+        'assistant' => 'SilverLink',
+        'ambient' => '環境トークン',
+        'baseline' => 'ベースライン',
+        _ => '記憶',
+      };
       lines.add('$prefix: ${t.text.trim()}');
     }
     return lines.join('\n');
@@ -57,25 +66,21 @@ class ConversationMemory {
 }
 
 class MemoryTurn {
-  MemoryTurn({
-    required this.role,
-    required this.text,
-    required this.at,
-  });
+  MemoryTurn({required this.role, required this.text, required this.at});
 
   final String role;
   final String text;
   final DateTime at;
 
   Map<String, dynamic> toJson() => {
-        'role': role,
-        'text': text,
-        'at': at.toIso8601String(),
-      };
+    'role': role,
+    'text': text,
+    'at': at.toIso8601String(),
+  };
 
   static MemoryTurn fromJson(Map<String, dynamic> json) => MemoryTurn(
-        role: json['role'] as String,
-        text: json['text'] as String,
-        at: DateTime.parse(json['at'] as String),
-      );
+    role: json['role'] as String,
+    text: json['text'] as String,
+    at: DateTime.parse(json['at'] as String),
+  );
 }
