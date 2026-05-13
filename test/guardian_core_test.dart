@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silverlink_gemini_agent/core/prompts/japanese_prompts.dart';
 import 'package:silverlink_gemini_agent/features/ambient/ambient_semantic_event.dart';
+import 'package:silverlink_gemini_agent/features/demo/demo_fixtures.dart';
 import 'package:silverlink_gemini_agent/features/guardian/guardian_ai_service.dart';
 import 'package:silverlink_gemini_agent/features/memory/conversation_memory.dart';
 import 'package:silverlink_gemini_agent/features/tts/google_cloud_tts_service.dart';
@@ -26,13 +27,15 @@ void main() {
   test('Gemini JSON parser accepts fenced JSON and falls back to raw text', () {
     final parsed = GeminiMultimodalService.parseReply('''
 ```json
-{"reply_jp":"おはようございます","follow_up_jp":"少し寒くありませんか","memory_note_jp":"朝は寒さを気にしていた"}
+{"reply_jp":"おはようございます","follow_up_jp":"少し寒くありませんか","memory_note_jp":"朝は寒さを気にしていた","medicine_card":{"medicine_name":"テスト薬","purpose_plain_ja":"痛みをやわらげる可能性があります","timing_plain_ja":"食後と読めます","warnings_plain_ja":"薬剤師に確認してください","confidence":0.75,"needs_human_review":true}}
 ```
 ''');
 
     expect(parsed.replyJp, 'おはようございます');
     expect(parsed.followUpJp, '少し寒くありませんか');
     expect(parsed.memoryNoteJp, '朝は寒さを気にしていた');
+    expect(parsed.medicineCard?.medicineName, 'テスト薬');
+    expect(parsed.medicineCard?.needsHumanReview, isTrue);
 
     final fallback = GeminiMultimodalService.parseReply('そのままの返答');
     expect(fallback.replyJp, 'そのままの返答');
@@ -62,6 +65,19 @@ void main() {
     final result = await service.probeLive();
     expect(result.ok, isFalse);
     expect(result.message, contains('disabled'));
+  });
+
+  test('demo fixtures provide medicine card and ambient fallback replies', () {
+    final medicine = DemoFixtures.medicineImageReply();
+    expect(medicine.rawText, contains('local_demo_fixture'));
+    expect(medicine.medicineCard?.medicineName, contains('ロキソニン'));
+    expect(medicine.medicineCard?.needsHumanReview, isTrue);
+
+    final ambient = DemoFixtures.ambientReply(
+      AmbientSemanticEvent.demoEvents().first,
+    );
+    expect(ambient.replyJp, contains('お薬箱'));
+    expect(ambient.memoryNoteJp, contains('semantic token'));
   });
 
   test('Google TTS request uses Chirp 3 HD warm Japanese voice controls', () {

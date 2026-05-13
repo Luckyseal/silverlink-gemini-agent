@@ -24,13 +24,13 @@ class JapanesePrompts {
   static const String jsonInstructionSuffix = '''
 
 回答は次のJSONのみを出力してください（前後に説明文やコードフェンスを付けないでください）。
-{"reply_jp":"ユーザーに読み上げる本文（です・ます）","follow_up_jp":"短い確認質問（任意、空文字可）","memory_note_jp":"次回に引き継ぐ1行メモ（症状や気になった点、任意）"}
+{"reply_jp":"ユーザーに読み上げる本文（です・ます）","follow_up_jp":"短い確認質問（任意、空文字可）","memory_note_jp":"次回に引き継ぐ1行メモ（症状や気になった点、任意）","medicine_card":{"medicine_name":"読み取れた薬名または不明","purpose_plain_ja":"用途の一般的な説明。断定不可なら空文字","timing_plain_ja":"読み取れた服用タイミング。断定不可なら空文字","warnings_plain_ja":"注意点と医師・薬剤師確認の案内","confidence":0.0,"needs_human_review":true}}
 ''';
 
   static String visionUserPrompt(String memoryBlock) {
     final buffer = StringBuffer()
       ..writeln('添付画像は日本の薬箱・ラベル・説明書・処方箋などの可能性があります。')
-      ..writeln('読み取れる範囲で商品名・成分・用法用量の注意・禁忌などを整理し、上記JSON形式で返してください。')
+      ..writeln('読み取れる範囲で商品名・成分・用法用量の注意・禁忌などを整理し、medicine_cardも埋めてください。')
       ..writeln('断定は避け、「パッケージの表記を確認してください」と繰り返し促してください。');
     if (memoryBlock.isNotEmpty) {
       buffer.writeln('これまでの記録:');

@@ -12,9 +12,12 @@ import 'package:speech_to_text/speech_to_text.dart';
 import '../../core/config/app_config.dart';
 import '../../core/layout/silverlink_tokens.dart';
 import '../../features/ambient/ambient_semantic_event.dart';
+import '../../features/demo/demo_fixtures.dart';
 import '../../features/guardian/guardian_ai_service.dart';
+import '../../features/medicine/medicine_card.dart';
 import '../../features/memory/conversation_memory.dart';
 import '../../features/tts/google_cloud_tts_service.dart';
+import '../../features/vision/gemini_multimodal_service.dart';
 
 enum LivePhase { idle, listening, processing, speaking }
 
@@ -39,6 +42,7 @@ class _LiveScreenState extends State<LiveScreen>
   LivePhase _phase = LivePhase.idle;
   String _status = '準備できました';
   String _lastReply = '';
+  MedicineCard? _lastMedicineCard;
   bool _speechReady = false;
   double _replyFontPt = SilverLinkTokens.replyFontDefault;
 
@@ -386,11 +390,49 @@ class _LiveScreenState extends State<LiveScreen>
     }
   }
 
+  Future<void> _applyReply({
+    required GeminiJsonReply reply,
+    required String userText,
+    required String status,
+    String userRole = 'user',
+    bool demoMode = false,
+  }) async {
+    final spoken = _composeSpoken(reply.replyJp, reply.followUpJp);
+    await _rememberReply(
+      userText: userText,
+      spoken: spoken,
+      memoryNote: reply.memoryNoteJp,
+      userRole: userRole,
+    );
+    setState(() {
+      _lastReply = spoken;
+      _lastMedicineCard = reply.medicineCard;
+      _status = demoMode ? '$status（デモモード）' : status;
+    });
+    await _speak(spoken);
+  }
+
+  Future<void> _applyMedicineDemoFallback() async {
+    await _applyReply(
+      reply: DemoFixtures.medicineImageReply(),
+      userText: '（デモモードで薬箱画像を確認しました）',
+      status: '薬品カードを表示しました',
+      demoMode: true,
+    );
+  }
+
+  Future<void> _applyAmbientDemoFallback(AmbientSemanticEvent event) async {
+    await _memory?.append(role: 'ambient', text: event.toPromptBlock());
+    await _applyReply(
+      reply: DemoFixtures.ambientReply(event),
+      userText: event.labelJp,
+      userRole: 'ambient',
+      status: '環境シグナルに応答しました',
+      demoMode: true,
+    );
+  }
+
   Future<void> _onPickImage(ImageSource source) async {
-    if (_guardianAi == null) {
-      await _openSettings(auto: true);
-      return;
-    }
     final picked = await _picker.pickImage(source: source, imageQuality: 85);
     if (picked == null) return;
     final bytes = await picked.readAsBytes();
@@ -399,10 +441,6 @@ class _LiveScreenState extends State<LiveScreen>
   }
 
   Future<void> _onDemoAsset() async {
-    if (_guardianAi == null) {
-      await _openSettings(auto: true);
-      return;
-    }
     try {
       final data = await rootBundle.load('assets/demo/placeholder.png');
       await _runVisionOnBytes(data.buffer.asUint8List(), 'image/png');
@@ -417,7 +455,11 @@ class _LiveScreenState extends State<LiveScreen>
   Future<void> _runVisionOnBytes(Uint8List bytes, String mime) async {
     final guardianAi = _guardianAi;
     if (guardianAi == null) {
-      await _openSettings(auto: true);
+      setState(() {
+        _phase = LivePhase.processing;
+        _status = 'デモモードで確認しています…';
+      });
+      await _applyMedicineDemoFallback();
       return;
     }
     setState(() {
@@ -431,26 +473,16 @@ class _LiveScreenState extends State<LiveScreen>
         mimeType: mime,
         memoryBlock: block,
       );
-      final spoken = _composeSpoken(reply.replyJp, reply.followUpJp);
-      await _rememberReply(
+      await _applyReply(
+        reply: reply,
         userText: '（薬や資料の写真を見せました）',
-        spoken: spoken,
-        memoryNote: reply.memoryNoteJp,
+        status: '薬品カードを表示しました',
       );
-      setState(() {
-        _lastReply = spoken;
-        _status = '完了';
-      });
-      await _speak(spoken);
     } catch (e) {
       setState(() {
-        _status = '通信に失敗しました。もう一度お試しください。';
+        _status = '通信が不安定です。デモモードに切り替えます。';
       });
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('エラー: $e')));
-      }
+      await _applyMedicineDemoFallback();
     } finally {
       if (mounted) {
         setState(() {
@@ -560,27 +592,17 @@ class _LiveScreenState extends State<LiveScreen>
         event: event,
         memoryBlock: block,
       );
-      final spoken = _composeSpoken(reply.replyJp, reply.followUpJp);
-      await _rememberReply(
+      await _applyReply(
+        reply: reply,
         userText: event.labelJp,
-        spoken: spoken,
-        memoryNote: reply.memoryNoteJp,
         userRole: 'ambient',
+        status: '環境シグナルに応答しました',
       );
-      setState(() {
-        _lastReply = spoken;
-        _status = '環境シグナルに応答しました';
-      });
-      await _speak(spoken);
     } catch (e) {
       setState(() {
-        _status = '安定トラックでの応答に失敗しました。';
+        _status = '通信が不安定です。デモモードに切り替えます。';
       });
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('エラー: $e')));
-      }
+      await _applyAmbientDemoFallback(event);
     } finally {
       if (mounted) {
         setState(() {
@@ -682,35 +704,37 @@ class _LiveScreenState extends State<LiveScreen>
     await showModalBottomSheet<void>(
       context: context,
       builder: (ctx) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.photo_library_outlined),
-              title: const Text('アルバムから選ぶ'),
-              onTap: () {
-                Navigator.pop(ctx);
-                _onPickImage(ImageSource.gallery);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.photo_camera_outlined),
-              title: const Text('カメラで撮る'),
-              onTap: () {
-                Navigator.pop(ctx);
-                _onPickImage(ImageSource.camera);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.image_outlined),
-              title: const Text('デモ画像（同梱プレースホルダー）'),
-              subtitle: const Text('録画リハーサル向け。ご自身の写真も assets/demo/ に追加可能です。'),
-              onTap: () {
-                Navigator.pop(ctx);
-                _onDemoAsset();
-              },
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_library_outlined),
+                title: const Text('アルバムから選ぶ'),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  _onPickImage(ImageSource.gallery);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_camera_outlined),
+                title: const Text('カメラで撮る'),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  _onPickImage(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.image_outlined),
+                title: const Text('デモ画像（同梱プレースホルダー）'),
+                subtitle: const Text('録画リハーサル向け。ご自身の写真も assets/demo/ に追加可能です。'),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  _onDemoAsset();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -818,13 +842,23 @@ class _LiveScreenState extends State<LiveScreen>
                 Expanded(
                   flex: 2,
                   child: SingleChildScrollView(
-                    child: Text(
-                      _lastReply,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontSize: _replyFontPt,
-                        height: 1.45,
-                        color: Colors.white,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (_lastMedicineCard != null) ...[
+                          _medicineCardView(context, _lastMedicineCard!),
+                          const SizedBox(height: 16),
+                        ],
+                        Text(
+                          _lastReply,
+                          style: Theme.of(context).textTheme.bodyLarge
+                              ?.copyWith(
+                                fontSize: _replyFontPt,
+                                height: 1.45,
+                                color: Colors.white,
+                              ),
+                        ),
+                      ],
                     ),
                   ),
                 )
@@ -892,6 +926,85 @@ class _LiveScreenState extends State<LiveScreen>
         const SizedBox(height: 8),
         Text(label, style: const TextStyle(color: Colors.white70)),
       ],
+    );
+  }
+
+  Widget _medicineCardView(BuildContext context, MedicineCard card) {
+    final reviewColor = card.needsHumanReview
+        ? const Color(0xFFFFD54F)
+        : const Color(0xFF80CBC4);
+    return Container(
+      key: const ValueKey('medicine-card'),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.08),
+        border: Border.all(color: reviewColor.withValues(alpha: 0.75)),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.medication_outlined, color: reviewColor, size: 28),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  card.medicineName.isEmpty ? '薬名を確認中' : card.medicineName,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          _medicineCardRow('用途', card.purposePlainJp),
+          _medicineCardRow('タイミング', card.timingPlainJp),
+          _medicineCardRow('確認事項', card.warningsPlainJp),
+          const SizedBox(height: 10),
+          Text(
+            card.needsHumanReview
+                ? '※処方・説明書と違う場合は、医師・薬剤師に確認してください。'
+                : '※念のため、処方・説明書と照らし合わせてください。',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: reviewColor,
+              fontSize: SilverLinkTokens.disclaimerFontSize,
+              height: 1.35,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _medicineCardRow(String label, String value) {
+    final displayValue = value.trim().isEmpty ? '読み取れた範囲では不明です。' : value;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white60,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            displayValue,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              height: 1.35,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

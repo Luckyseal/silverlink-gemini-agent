@@ -5,6 +5,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 
 import '../../core/prompts/japanese_prompts.dart';
 import '../ambient/ambient_semantic_event.dart';
+import '../medicine/medicine_card.dart';
 
 class GeminiJsonReply {
   GeminiJsonReply({
@@ -12,12 +13,14 @@ class GeminiJsonReply {
     required this.followUpJp,
     required this.memoryNoteJp,
     required this.rawText,
+    this.medicineCard,
   });
 
   final String replyJp;
   final String followUpJp;
   final String memoryNoteJp;
   final String rawText;
+  final MedicineCard? medicineCard;
 }
 
 /// Calls Gemini with multimodal or text-only content; parses JSON-shaped replies.
@@ -97,6 +100,7 @@ class GeminiMultimodalService {
         followUpJp: '',
         memoryNoteJp: '',
         rawText: rawText,
+        medicineCard: null,
       );
     }
     try {
@@ -107,6 +111,7 @@ class GeminiMultimodalService {
         memoryNoteJp: (map['memory_note_jp'] ?? map['memoryNoteJp'] ?? '')
             .toString(),
         rawText: rawText,
+        medicineCard: MedicineCard.fromJson(map),
       );
     } catch (_) {
       return GeminiJsonReply(
@@ -114,6 +119,7 @@ class GeminiMultimodalService {
         followUpJp: '',
         memoryNoteJp: '',
         rawText: rawText,
+        medicineCard: null,
       );
     }
   }
