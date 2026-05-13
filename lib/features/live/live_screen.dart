@@ -142,6 +142,7 @@ class _LiveScreenState extends State<LiveScreen>
     var draftFont = _replyFontPt;
     var draftLiveEnabled = _config.liveExperimentalEnabled;
     var draftGoogleTtsEnabled = _config.googleTtsEnabled;
+    var previewingVoice = false;
     final saved = await showDialog<bool>(
       context: context,
       builder: (ctx) => StatefulBuilder(
@@ -202,6 +203,38 @@ class _LiveScreenState extends State<LiveScreen>
                   enabled: draftGoogleTtsEnabled,
                   decoration: const InputDecoration(
                     labelText: 'TTS voice（例: ja-JP-Chirp3-HD-Aoede）',
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: OutlinedButton.icon(
+                    onPressed: previewingVoice
+                        ? null
+                        : () async {
+                            setModalState(() => previewingVoice = true);
+                            final messenger = ScaffoldMessenger.of(context);
+                            try {
+                              await _previewWarmVoice(
+                                enabled: draftGoogleTtsEnabled,
+                                credential: ttsCredentialCtrl.text.trim(),
+                                voiceName: ttsVoiceCtrl.text.trim(),
+                              );
+                            } catch (e) {
+                              messenger.showSnackBar(
+                                SnackBar(content: Text('音声プレビューに失敗しました: $e')),
+                              );
+                            } finally {
+                              setModalState(() => previewingVoice = false);
+                            }
+                          },
+                    icon: previewingVoice
+                        ? const SizedBox.square(
+                            dimension: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.volume_up_outlined),
+                    label: const Text('温柔音声を試す'),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -315,6 +348,29 @@ class _LiveScreenState extends State<LiveScreen>
       );
     }
     await _googleTts!.speakWarmly(text);
+  }
+
+  Future<void> _previewWarmVoice({
+    required bool enabled,
+    required String credential,
+    required String voiceName,
+  }) async {
+    const sample = 'おはようございます。今日は少し肌寒いですね。無理なさらず、温かいお茶でもいかがですか。';
+    if (!enabled || credential.isEmpty) {
+      await _tts.speak(sample);
+      return;
+    }
+    final preview = GoogleCloudTtsService(
+      credential: credential,
+      voiceName: voiceName.isEmpty
+          ? AppConfig.defaultGoogleTtsVoice
+          : voiceName,
+    );
+    try {
+      await preview.speakWarmly(sample);
+    } finally {
+      preview.dispose();
+    }
   }
 
   Future<void> _rememberReply({

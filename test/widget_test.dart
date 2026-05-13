@@ -32,6 +32,7 @@ void main() {
     expect(find.text('Google Chirp 3 HD 音声'), findsOneWidget);
     expect(find.text('GOOGLE_TTS_API_KEY / OAuth token'), findsOneWidget);
     expect(find.text('TTS voice（例: ja-JP-Chirp3-HD-Aoede）'), findsOneWidget);
+    expect(find.text('温柔音声を試す'), findsOneWidget);
   });
 
   testWidgets('long-press orb opens Scenario Injector', (
