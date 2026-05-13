@@ -54,3 +54,4 @@ flutter run
 
 - Application copy: [docs/application_materials.md](docs/application_materials.md)
 - Review notes: [docs/review_report.md](docs/review_report.md)
+- Hackathon demo alignment: [docs/hackathon_demo_alignment.md](docs/hackathon_demo_alignment.md)
