@@ -4,27 +4,27 @@
 
 **Project name:** SilverLink Ambient Agent
 
-**One-line pitch:** An ambient AI guardian for Japan's aging society that senses unspoken needs through privacy-preserving semantic signals.
+**One-line pitch:** An ambient family intelligence layer that quietly notices changes in an older adult's daily rhythm and turns uncertainty into warm support and human handoff.
 
 **Description:**  
-As a 19-year IT management veteran in Tokyo, I have seen how traditional reactive apps often fail elderly users: they still require the user to notice, open, type, and navigate. SilverLink explores a different model: an AI-native, Zero-UI guardian powered by Gemini, designed around ambient intelligence rather than menus.
+As a 19-year IT management veteran in Tokyo, I have seen how traditional reactive apps often fail older adults and their families: they still require the user to notice, open, type, and navigate. SilverLink explores a different model: Ambient Family Intelligence powered by Gemini, designed around quiet presence rather than menus.
 
-For the MVP, we demonstrate the safest executable slice of a Matter-compatible edge privacy architecture: medicine photo understanding, semantic event tokens such as missed medication or low activity, a warm Japanese voice, and a family/pharmacist handoff memo. Raw video and audio are not part of the proactive scenario demo flow; the app sends privacy-preserving semantic tokens into Gemini's reasoning loop. Gemini then follows an Observe-Reason-Decide pattern and responds in gentle natural Japanese, avoiding commands and medical diagnosis.
+For the MVP, we demonstrate the safest executable slice of this future: medicine photo understanding, semantic event tokens such as missed medication or low activity, a warm Japanese voice, and a family/pharmacist handoff memo. Raw video and audio are not part of the proactive scenario demo flow; the app sends privacy-preserving semantic tokens into Gemini's reasoning loop. Gemini then follows an Observe-Reason-Decide pattern and responds in gentle natural Japanese, avoiding commands, monitoring language, and medical diagnosis.
 
-SilverLink shows how Gemini can move from a reactive tool to a proactive life guardian for social welfare DX in Japan: respectful, quiet, emotionally aware, and designed for people who should not have to learn another app.
+SilverLink shows how Gemini can move from a reactive tool to a quiet relationship layer for social welfare DX in Japan. Technology should not replace relationships. It should quietly protect them.
 
 ## Japanese
 
 **プロジェクト名:** SilverLink Ambient Agent
 
-**一行ピッチ:** 日本の超高齢社会に向けた、言葉にならない不安をプライバシー保護型の意味信号から察知する環境知能エージェント。
+**一行ピッチ:** 高齢者の日々のリズムの小さな変化をそっと察知し、不確かさを温かな支援と人への引き継ぎに変える Ambient Family Intelligence。
 
 **説明:**  
-私は東京で19年にわたりITマネジメントに携わる中で、高齢者向けの従来型アプリの限界を感じてきました。多くのアプリは、利用者が自分で気づき、開き、入力し、操作することを前提にしています。しかし本当に支援が必要な瞬間ほど、その操作自体が負担になります。
+私は東京で19年にわたりITマネジメントに携わる中で、高齢者と家族をつなぐ従来型アプリの限界を感じてきました。多くのアプリは、利用者が自分で気づき、開き、入力し、操作することを前提にしています。しかし本当に支援が必要な瞬間ほど、その操作自体が負担になります。
 
-SilverLinkは、メニュー操作を前提にしないZero-UIの見守りエージェントです。MVPでは、Matter互換のエッジプライバシー構成を、服薬忘れ、活動量低下、長い静けさ、孤独の兆しといった意味トークンでデモします。原始映像や原始音声ではなく、ローカルで意味化されたトークンだけをGeminiの推論ループに渡します。
+SilverLinkは、メニュー操作を前提にしない静かな家族のプレゼンス層です。MVPでは、Matter互換のエッジプライバシー構成を、服薬忘れ、活動量低下、長い静けさ、孤独の兆しといった意味トークンでデモします。原始映像や原始音声ではなく、ローカルで意味化されたトークンだけをGeminiの推論ループに渡します。
 
-GeminiはObserve-Reason-Decideの流れで状況を判断し、命令や診断ではなく、自然な敬語でそっと声をかけます。さらに不確かな点を家族・薬剤師へ渡すメモに変換します。SilverLinkは、AIを「使う道具」から「そばにいる生活の守り手」へ変える、日本の社会福祉DXのための提案です。
+GeminiはObserve-Reason-Decideの流れで状況を判断し、命令や診断ではなく、自然な敬語でそっと声をかけます。さらに不確かな点を家族・薬剤師へ渡すメモに変換します。SilverLinkは、AIを「使う道具」から「関係性を静かに守る層」へ変える、日本の社会福祉DXのための提案です。
 
 ## Technical Blueprint
 

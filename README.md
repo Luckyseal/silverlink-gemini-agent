@@ -1,6 +1,6 @@
-# SilverLink Gemini Agent
+# SilverLink Ambient Agent
 
-Flutter prototype for **SilverLink**（银发族数字助手）：单页「Live orb」UI + Gemini 多模态（药盒/文书照片）+ Ambient / Matter 语义事件注入 + 日语敬语 system prompt + 会话记忆（SharedPreferences）+ 日语 TTS / STT。
+Flutter/iOS-first prototype for **SilverLink**, an **Ambient Family Intelligence** layer for Japan's aging society. The demo shows the safest executable slice: one calm orb, Gemini multimodal medicine/document understanding, Matter-style semantic event injection, warm Japanese voice, local baseline memory, and a family/pharmacist handoff memo.
 
 ## Prerequisites
 
@@ -28,13 +28,14 @@ flutter run \
 ## Demo script（録画 / レビュー用）
 
 1. `flutter run --dart-define=GEMINI_API_KEY=...` で起動。
-2. **見る** → 「デモ画像（同梱プレースホルダー）」で API 呼び出し〜 orb 色変化〜 大字の薬品カード〜家族・薬剤師への交接メモ〜読み上げまでを見せる。
-3. API が不安定な場合も、デモ画像と Scenario Injector はローカル fixtures へ自動フォールバックし、大字の薬品カード、交接メモ、温かい応答を維持する。
-4. orb を長押しして **Scenario Injector** を開き、`medication_missed` を注入。Matter 互換エッジで意味化されたトークンだけを Gemini に渡す流れを説明。
-5. **設定** を開き、文字サイズスライダー、Google Chirp 3 HD 音声、Gemini Live 実験トラックのトグルを見せる。「温柔音声を試す」で声の温度を先に確認する。TTS / Live は失敗時に安定トラックへ戻る。
-6. （iOS 実機）薬箱の写真を **アルバム / カメラ** から選択し、パッケージ文字の読み取り補助と注意書きを説明。
-7. （iOS 実機）**話す** で短文の日本語を話し、記憶に基づく追質問があれば「記一记」ストーリーを説明。
-8. フッターの非診療ディスクレーマーを指し、医学判断は行わないことを宣言。
+2. 冒頭で一言だけ伝える: **"Technology should not replace relationships. It should quietly protect them."**
+3. **見る** → 「デモ画像（同梱プレースホルダー）」で API 呼び出し〜 orb 色変化〜 大字の薬品カード〜家族・薬剤師への交接メモ〜読み上げまでを見せる。
+4. API が不安定な場合も、デモ画像と Scenario Injector はローカル fixtures へ自動フォールバックし、大字の薬品カード、交接メモ、温かい応答を維持する。
+5. orb を長押しして **Scenario Injector** を開き、`medication_missed` を注入。Matter 互換エッジで意味化されたトークンだけを Gemini に渡す流れを説明。
+6. **設定** を開き、文字サイズスライダー、Google Chirp 3 HD 音声、Gemini Live 実験トラックのトグルを見せる。「温柔音声を試す」で声の温度を先に確認する。TTS / Live は失敗時に安定トラックへ戻る。
+7. （iOS 実機）薬箱の写真を **アルバム / カメラ** から選択し、パッケージ文字の読み取り補助と注意書きを説明。
+8. （iOS 実機）**話す** で短文の日本語を話し、記憶に基づく追質問があれば「記一记」ストーリーを説明。
+9. フッターの非診療ディスクレーマーを指し、医学判断は行わないことを宣言。
 
 ## Run / Test
 
@@ -54,5 +55,6 @@ flutter run
 产品叙事与技术叙述见 [docs/solutions.md](docs/solutions.md)。
 
 - Application copy: [docs/application_materials.md](docs/application_materials.md)
+- Narrative architecture: [docs/narrative_architecture.md](docs/narrative_architecture.md)
 - Review notes: [docs/review_report.md](docs/review_report.md)
 - Hackathon demo alignment: [docs/hackathon_demo_alignment.md](docs/hackathon_demo_alignment.md)

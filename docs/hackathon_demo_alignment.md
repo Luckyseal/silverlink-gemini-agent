@@ -6,6 +6,8 @@ This document maps the award-oriented guidance in `SilverLink Ambient Agent èŽ·å
 
 The PDF is the winning strategy. The repository is the executable demo asset. They do not need to be identical. The goal on stage is to show a stable, emotionally convincing MVP while explaining the larger architecture with clear boundaries.
 
+The competition positioning is **Ambient Family Intelligence**, not "elderly monitoring" or "medication reminder." The medicine flow is the safest demo slice of a larger relationship-presence layer.
+
 ## What Is Ready To Demo
 
 | Story beat | Current implementation | Demo wording |
@@ -54,11 +56,11 @@ The PDF is the winning strategy. The repository is the executable demo asset. Th
 
 ## 3-minute Pitch
 
-What if the most important health app for older adults had almost no interface?
+What if the most important family technology for older adults had almost no interface?
 
 This is SilverLink Ambient Agent.
 
-In Japan, the issue is not only that older adults are offline. The deeper issue is that the last step of digital care is still too hard: reading a medicine box, understanding instructions, remembering yesterday's condition, and knowing when to ask a human.
+In Japan, the issue is not only that older adults are offline. The deeper issue is that families are farther apart, daily changes are easy to miss, and the last step of digital care is still too hard: reading a medicine box, understanding instructions, remembering yesterday's condition, and knowing when to ask a human.
 
 SilverLink reduces that burden to one calm ambient interface. The user can show a medicine box, speak naturally, or simply be supported by semantic signals from the environment.
 
@@ -76,7 +78,7 @@ That is why this is an agent, not just a chatbot. It observes context, remembers
 
 Our larger hackathon strategy points toward web-first deployment, Cloud Run, ephemeral Live tokens, and stronger automation. But for this stage demo, we prioritize the safest executable slice: Flutter on iOS, Gemini stable generation, semantic-token scenarios, a warm voice, and a handoff memo that gives responsibility back to people.
 
-AI should adapt to people, not the other way around.
+Technology should not replace relationships. It should quietly protect them.
 
 ## Judge Q&A
 
