@@ -28,8 +28,8 @@ flutter run \
 ## Demo script（録画 / レビュー用）
 
 1. `flutter run --dart-define=GEMINI_API_KEY=...` で起動。
-2. **見る** → 「デモ画像（同梱プレースホルダー）」で API 呼び出し〜 orb 色変化〜 JSON 応答の読み上げまでを見せる。
-3. API が不安定な場合も、デモ画像と Scenario Injector はローカル fixtures へ自動フォールバックし、大字の薬品カードと温かい応答を維持する。
+2. **見る** → 「デモ画像（同梱プレースホルダー）」で API 呼び出し〜 orb 色変化〜 大字の薬品カード〜家族・薬剤師への交接メモ〜読み上げまでを見せる。
+3. API が不安定な場合も、デモ画像と Scenario Injector はローカル fixtures へ自動フォールバックし、大字の薬品カード、交接メモ、温かい応答を維持する。
 4. orb を長押しして **Scenario Injector** を開き、`medication_missed` を注入。Matter 互換エッジで意味化されたトークンだけを Gemini に渡す流れを説明。
 5. **設定** を開き、文字サイズスライダー、Google Chirp 3 HD 音声、Gemini Live 実験トラックのトグルを見せる。「温柔音声を試す」で声の温度を先に確認する。TTS / Live は失敗時に安定トラックへ戻る。
 6. （iOS 実機）薬箱の写真を **アルバム / カメラ** から選択し、パッケージ文字の読み取り補助と注意書きを説明。

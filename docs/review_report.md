@@ -14,6 +14,7 @@
 - Added Matter-compatible semantic event tokens for proactive care scenarios.
 - Added a Guardian AI service boundary so the UI can use stable Gemini and an experimental Live probe through one interface.
 - Added Google Cloud Text-to-Speech Chirp 3 HD as the primary warm voice path, with device TTS fallback.
+- Added structured medicine cards and family/pharmacist handoff memos so uncertainty is handed back to humans.
 - Persisted Gemini `memory_note_jp` into the baseline memory instead of discarding it.
 - Added application materials and a review report for registration and judging.
 

@@ -4,6 +4,7 @@ import 'package:silverlink_gemini_agent/core/prompts/japanese_prompts.dart';
 import 'package:silverlink_gemini_agent/features/ambient/ambient_semantic_event.dart';
 import 'package:silverlink_gemini_agent/features/demo/demo_fixtures.dart';
 import 'package:silverlink_gemini_agent/features/guardian/guardian_ai_service.dart';
+import 'package:silverlink_gemini_agent/features/handoff/handoff_summary.dart';
 import 'package:silverlink_gemini_agent/features/memory/conversation_memory.dart';
 import 'package:silverlink_gemini_agent/features/tts/google_cloud_tts_service.dart';
 import 'package:silverlink_gemini_agent/features/vision/gemini_multimodal_service.dart';
@@ -79,6 +80,19 @@ void main() {
     expect(ambient.replyJp, contains('お薬箱'));
     expect(ambient.memoryNoteJp, contains('semantic token'));
   });
+
+  test(
+    'handoff summary converts medicine card uncertainty into human handoff',
+    () {
+      final card = DemoFixtures.medicineImageReply().medicineCard!;
+      final summary = HandoffSummary.fromMedicineCard(card);
+
+      expect(summary.todayJp, contains(card.medicineName));
+      expect(summary.askProfessionalJp, contains('薬剤師'));
+      expect(summary.familyNoteJp, contains('一緒に見てください'));
+      expect(summary.toShareText(), contains('【医師・薬剤師に確認すること】'));
+    },
+  );
 
   test('Google TTS request uses Chirp 3 HD warm Japanese voice controls', () {
     final request = GoogleCloudTtsService.buildWarmJapaneseRequest(

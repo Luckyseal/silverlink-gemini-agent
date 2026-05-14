@@ -14,6 +14,7 @@ import '../../core/layout/silverlink_tokens.dart';
 import '../../features/ambient/ambient_semantic_event.dart';
 import '../../features/demo/demo_fixtures.dart';
 import '../../features/guardian/guardian_ai_service.dart';
+import '../../features/handoff/handoff_summary.dart';
 import '../../features/medicine/medicine_card.dart';
 import '../../features/memory/conversation_memory.dart';
 import '../../features/tts/google_cloud_tts_service.dart';
@@ -848,6 +849,11 @@ class _LiveScreenState extends State<LiveScreen>
                         if (_lastMedicineCard != null) ...[
                           _medicineCardView(context, _lastMedicineCard!),
                           const SizedBox(height: 16),
+                          _handoffCardView(
+                            context,
+                            HandoffSummary.fromMedicineCard(_lastMedicineCard!),
+                          ),
+                          const SizedBox(height: 16),
                         ],
                         Text(
                           _lastReply,
@@ -974,6 +980,49 @@ class _LiveScreenState extends State<LiveScreen>
               height: 1.35,
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _handoffCardView(BuildContext context, HandoffSummary summary) {
+    return Container(
+      key: const ValueKey('handoff-card'),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF263238).withValues(alpha: 0.95),
+        border: Border.all(
+          color: const Color(0xFF80CBC4).withValues(alpha: 0.65),
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.handshake_outlined,
+                color: Color(0xFF80CBC4),
+                size: 28,
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  '家族・薬剤師への交接メモ',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          _medicineCardRow('今日確認したこと', summary.todayJp),
+          _medicineCardRow('不確かな点', summary.uncertainJp),
+          _medicineCardRow('確認すること', summary.askProfessionalJp),
+          _medicineCardRow('家族へ', summary.familyNoteJp),
         ],
       ),
     );

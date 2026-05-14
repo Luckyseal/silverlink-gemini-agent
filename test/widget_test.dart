@@ -73,7 +73,9 @@ void main() {
     await tester.pump(const Duration(milliseconds: 800));
 
     expect(find.byKey(const ValueKey('medicine-card')), findsOneWidget);
-    expect(find.textContaining('ロキソニン'), findsOneWidget);
+    expect(find.byKey(const ValueKey('handoff-card')), findsOneWidget);
+    expect(find.textContaining('ロキソニン'), findsWidgets);
     expect(find.text('確認事項'), findsOneWidget);
+    expect(find.text('家族・薬剤師への交接メモ'), findsOneWidget);
   });
 }

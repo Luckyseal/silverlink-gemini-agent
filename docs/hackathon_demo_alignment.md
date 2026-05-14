@@ -18,14 +18,14 @@ The PDF is the winning strategy. The repository is the executable demo asset. Th
 | Privacy narrative | `edge_semantic_token_only` event payloads | "The demo sends semantic tokens, not raw sensor feeds." |
 | Gemini Live direction | Experimental Live connection probe | "Live is represented as an experimental track; the stable path is used for the stage demo." |
 | Memory/baseline | SharedPreferences transcript and memory notes | "For the MVP, baseline memory is local and lightweight." |
-| Safety boundary | Non-medical prompt + disclaimer | "It supports understanding and handoff, not diagnosis or dosage changes." |
+| Safety boundary | Non-medical prompt + disclaimer + handoff memo | "It supports understanding and handoff, not diagnosis or dosage changes." |
 
 ## What To Say As Architecture Proof
 
 - Matter/Thread devices are not physically integrated in this MVP. The Scenario Injector stands in for an edge gateway that emits semantic tokens.
 - Gemini Live is not the guaranteed main voice loop. It is shown as an experimental integration direction while the reliable demo uses Gemini stable generation plus TTS.
 - Google Cloud TTS is used because the emotional quality of the voice matters in eldercare. The fallback is intentional resilience, not a weakness.
-- Long-term memory, family handoff, pharmacist summary, and Cloud Run deployment are roadmap items for the post-hackathon build.
+- Long-term memory and Cloud Run deployment are roadmap items for the post-hackathon build. Family/pharmacist handoff is represented in the current demo as a structured handoff memo.
 
 ## What Not To Overclaim
 
@@ -47,7 +47,9 @@ The PDF is the winning strategy. The repository is the executable demo asset. Th
    - "Here we simulate the edge gateway. It sends only semantic tokens such as `medication_missed`."
 5. Inject `服薬サインなし`.
    - "Notice the agent does not command the user to take medicine. It gently opens a conversation."
-6. Point to the disclaimer.
+6. Point to the medicine card and handoff memo.
+   - "The agent turns uncertainty into a human handoff artifact instead of pretending to be a doctor."
+7. Point to the disclaimer.
    - "SilverLink is an information and handoff assistant. It knows when to step back."
 
 ## 3-minute Pitch
@@ -72,7 +74,7 @@ We are careful about the boundary. SilverLink does not diagnose, change dosage, 
 
 That is why this is an agent, not just a chatbot. It observes context, remembers baseline, responds with care, and knows when not to act.
 
-Our larger hackathon strategy points toward web-first deployment, Cloud Run, ephemeral Live tokens, and stronger automation. But for this stage demo, we prioritize the path that is stable and emotionally clear: Flutter on iOS, Gemini stable generation, semantic-token scenarios, and a warm voice.
+Our larger hackathon strategy points toward web-first deployment, Cloud Run, ephemeral Live tokens, and stronger automation. But for this stage demo, we prioritize the safest executable slice: Flutter on iOS, Gemini stable generation, semantic-token scenarios, a warm voice, and a handoff memo that gives responsibility back to people.
 
 AI should adapt to people, not the other way around.
 
@@ -91,7 +93,7 @@ No. Live is an experimental track in this repo. The guaranteed demo path uses Ge
 Because for eldercare, a cold mechanical voice can break trust. Chirp 3 HD gives a warmer Japanese voice path while device TTS remains the fallback.
 
 **How do you avoid medical risk?**  
-The prompt, UI copy, and demo script all frame SilverLink as information support and human handoff. It does not diagnose, prescribe, or change dosage.
+The prompt, UI copy, and demo script all frame SilverLink as information support and human handoff. It does not diagnose, prescribe, or change dosage. The medicine card also creates a family/pharmacist memo so uncertainty becomes a handoff, not an AI decision.
 
 **What is the strongest winning point?**  
 The product is not feature-heavy; it is interaction-light. It turns Gemini from a tool the user must operate into a quiet agent that adapts to the user's context.
@@ -101,6 +103,6 @@ The product is not feature-heavy; it is interaction-light. It turns Gemini from 
 1. Move stable demo to a web-first PWA or add a companion PWA for judges and deployment.
 2. Add backend-issued ephemeral tokens for Gemini Live.
 3. Add Cloud Run deployment and GitHub Actions smoke checks.
-4. Add structured medicine cards and pharmacist/family handoff summaries.
+4. Add copy/share/export for the family/pharmacist handoff memo.
 5. Replace mock scenario tokens with real Matter/Thread gateway integration.
 6. Evaluate MedGemma as a second-layer explanation or privacy-enhanced local reasoning path.
