@@ -9,7 +9,7 @@ Flutter/iOS-first prototype for **SilverLink**, an **Ambient Family Intelligence
 
 ## Configure API key
 
-変数名は [.env.example](.env.example) と同一です（`GEMINI_API_KEY` / `GEMINI_MODEL` / `GOOGLE_TTS_API_KEY` / `GOOGLE_TTS_VOICE`）。キーをリポジトリにコミットしないでください。Gemini Live 実験トラックと Google Chirp 3 HD 音声はアプリ内設定から有効化できます。
+変数名は [.env.example](.env.example) と同一です（`GEMINI_API_KEY` / `GEMINI_MODEL` / `GOOGLE_TTS_API_KEY` / `GOOGLE_TTS_VOICE`）。キーをリポジトリにコミットしないでください。Gemini Live 実験プローブと Google Chirp 3 HD 音声はアプリ内設定から有効化できます。
 
 **Option A — dart-define（推荐用于本地 / CI）**
 
@@ -29,10 +29,10 @@ flutter run \
 
 1. `flutter run --dart-define=GEMINI_API_KEY=...` で起動。
 2. 冒頭で一言だけ伝える: **"Technology should not replace relationships. It should quietly protect them."**
-3. **見る** → 「デモ画像（同梱プレースホルダー）」で API 呼び出し〜 orb 色変化〜 大字の薬品カード〜家族・薬剤師への交接メモ〜読み上げまでを見せる。
-4. API が不安定な場合も、デモ画像と Scenario Injector はローカル fixtures へ自動フォールバックし、大字の薬品カード、交接メモ、温かい応答を維持する。
-5. orb を長押しして **Scenario Injector** を開き、`medication_missed` を注入。Matter 互換エッジで意味化されたトークンだけを Gemini に渡す流れを説明。
-6. **設定** を開き、文字サイズスライダー、Google Chirp 3 HD 音声、Gemini Live 実験トラックのトグルを見せる。「温柔音声を試す」で声の温度を先に確認する。TTS / Live は失敗時に安定トラックへ戻る。
+3. **見る** → 「デモ画像（同梱プレースホルダー）」で API 呼び出し〜 orb 色変化〜 大字の薬品カード〜家族・薬剤師への交接メモ〜読み上げ〜交接メモのコピーまでを見せる。
+4. API key 未設定または通信が不安定な場合も、デモ画像と Scenario Injector はローカル fixtures へ自動フォールバックし、大字の薬品カード、交接メモ、温かい応答を維持する。
+5. orb を長押しして hidden **Scenario Injector** を開き、`medication_missed` を注入。Matter 互換エッジで意味化されたトークンだけを Gemini に渡す流れを説明。
+6. **設定** を開き、文字サイズスライダー、Google Chirp 3 HD 音声、Gemini Live 実験プローブのトグルを見せる。「温柔音声を試す」で声の温度を先に確認する。TTS / Live probe は失敗時に安定トラックへ戻る。
 7. （iOS 実機）薬箱の写真を **アルバム / カメラ** から選択し、パッケージ文字の読み取り補助と注意書きを説明。
 8. （iOS 実機）**話す** で短文の日本語を話し、記憶に基づく追質問があれば「記一记」ストーリーを説明。
 9. フッターの非診療ディスクレーマーを指し、医学判断は行わないことを宣言。
@@ -52,7 +52,7 @@ flutter run
 
 ## Docs
 
-产品叙事与技术叙述见 [docs/solutions.md](docs/solutions.md)。
+产品叙事与技术叙述见 [docs/solutions.md](docs/solutions.md)。该文档描述当前 Flutter/iOS MVP，不把路线图能力写成已实现能力。
 
 - Application copy: [docs/application_materials.md](docs/application_materials.md)
 - Narrative architecture: [docs/narrative_architecture.md](docs/narrative_architecture.md)

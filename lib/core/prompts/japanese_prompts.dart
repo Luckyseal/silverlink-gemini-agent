@@ -30,8 +30,8 @@ class JapanesePrompts {
   static String visionUserPrompt(String memoryBlock) {
     final buffer = StringBuffer()
       ..writeln('添付画像は日本の薬箱・ラベル・説明書・処方箋などの可能性があります。')
-      ..writeln('読み取れる範囲で商品名・成分・用法用量の注意・禁忌などを整理し、medicine_cardも埋めてください。')
-      ..writeln('断定は避け、「パッケージの表記を確認してください」と繰り返し促してください。');
+      ..writeln('読み取れる範囲で商品名・成分・服用に関する表記・注意・禁忌などを整理し、medicine_cardも埋めてください。')
+      ..writeln('用量を推定せず、断定は避け、「パッケージの表記を確認してください」と繰り返し促してください。');
     if (memoryBlock.isNotEmpty) {
       buffer.writeln('これまでの記録:');
       buffer.writeln(memoryBlock);

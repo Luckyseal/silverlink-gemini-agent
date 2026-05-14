@@ -15,18 +15,20 @@
 - Added a Guardian AI service boundary so the UI can use stable Gemini and an experimental Live probe through one interface.
 - Added Google Cloud Text-to-Speech Chirp 3 HD as the primary warm voice path, with device TTS fallback.
 - Added structured medicine cards and family/pharmacist handoff memos so uncertainty is handed back to humans.
+- Added a copy action for the family/pharmacist handoff memo so the demo visibly moves responsibility back to people.
 - Persisted Gemini `memory_note_jp` into the baseline memory instead of discarding it.
 - Added application materials and a review report for registration and judging.
 
 ## Verified Baseline
 
-- `flutter test` passed before implementation.
-- `flutter analyze` reported no issues before implementation.
+- `flutter test` passes after the latest demo hardening.
+- `flutter analyze` reports no issues after the latest demo hardening.
 
 ## Remaining Risks
 
 - Gemini Live remains experimental in this Flutter app. The stable demo path continues to use Gemini content generation.
 - Live audio playback is not part of the guaranteed demo path; the Live track is a connection probe and architecture proof.
 - Google Cloud TTS requires a valid Cloud Text-to-Speech credential and enabled billing/API. If unavailable, the app falls back to device TTS.
-- Scenario tokens are mocked for MVP. Real Matter/Thread device integration remains future work.
+- Scenario tokens are mocked for MVP. If Gemini/API keys are unavailable, the Scenario Injector uses local fixtures to preserve the stage agent loop.
+- Real Matter/Thread device integration remains future work.
 - This is not a medical device and must not provide diagnosis, treatment instruction, or medication dosage decisions.

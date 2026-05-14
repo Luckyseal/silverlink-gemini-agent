@@ -16,16 +16,16 @@ The competition positioning is **Ambient Family Intelligence**, not "elderly mon
 | Medicine/document understanding | Image picker + Gemini multimodal call | "The user shows a medicine box or document, and Gemini explains what can be safely read." |
 | Warm Japanese response | SilverLink Guardian system instruction | "It speaks in natural keigo and avoids commands." |
 | Warm voice | Google Cloud TTS Chirp 3 HD with device TTS fallback | "For the demo, we use a warmer Google voice path; if it fails, the device voice keeps the flow alive." |
-| Proactive ambient scenario | Hidden Scenario Injector with semantic tokens | "Real sensors are mocked as Matter-compatible semantic tokens to prove the agent loop." |
+| Proactive ambient scenario | Hidden Scenario Injector with semantic tokens and local fallback | "Real sensors are mocked as Matter-compatible semantic tokens to prove the agent loop." |
 | Privacy narrative | `edge_semantic_token_only` event payloads | "The demo sends semantic tokens, not raw sensor feeds." |
-| Gemini Live direction | Experimental Live connection probe | "Live is represented as an experimental track; the stable path is used for the stage demo." |
+| Gemini Live direction | Experimental Live connection probe | "Live is represented as a future realtime direction; the stable path is used for the stage demo." |
 | Memory/baseline | SharedPreferences transcript and memory notes | "For the MVP, baseline memory is local and lightweight." |
-| Safety boundary | Non-medical prompt + disclaimer + handoff memo | "It supports understanding and handoff, not diagnosis or dosage changes." |
+| Safety boundary | Non-medical prompt + disclaimer + copyable handoff memo | "It supports understanding and handoff, not diagnosis or dosage changes." |
 
 ## What To Say As Architecture Proof
 
-- Matter/Thread devices are not physically integrated in this MVP. The Scenario Injector stands in for an edge gateway that emits semantic tokens.
-- Gemini Live is not the guaranteed main voice loop. It is shown as an experimental integration direction while the reliable demo uses Gemini stable generation plus TTS.
+- Matter/Thread devices are not physically integrated in this MVP. The Scenario Injector stands in for an edge gateway that emits semantic tokens and has a local fallback for stage reliability.
+- Gemini Live is not the guaranteed main voice loop. It is shown as an experimental probe and future realtime direction while the reliable demo uses Gemini stable generation plus TTS.
 - Google Cloud TTS is used because the emotional quality of the voice matters in eldercare. The fallback is intentional resilience, not a weakness.
 - Long-term memory and Cloud Run deployment are roadmap items for the post-hackathon build. Family/pharmacist handoff is represented in the current demo as a structured handoff memo.
 
@@ -51,7 +51,9 @@ The competition positioning is **Ambient Family Intelligence**, not "elderly mon
    - "Notice the agent does not command the user to take medicine. It gently opens a conversation."
 6. Point to the medicine card and handoff memo.
    - "The agent turns uncertainty into a human handoff artifact instead of pretending to be a doctor."
-7. Point to the disclaimer.
+7. Tap the handoff memo copy button.
+   - "This is designed to leave the AI and move back into a family or pharmacist conversation."
+8. Point to the disclaimer.
    - "SilverLink is an information and handoff assistant. It knows when to step back."
 
 ## 3-minute Pitch
@@ -103,8 +105,8 @@ The product is not feature-heavy; it is interaction-light. It turns Gemini from 
 ## Roadmap After The Hackathon
 
 1. Move stable demo to a web-first PWA or add a companion PWA for judges and deployment.
-2. Add backend-issued ephemeral tokens for Gemini Live.
+2. Add backend-issued ephemeral tokens for the Gemini Live experimental track.
 3. Add Cloud Run deployment and GitHub Actions smoke checks.
-4. Add copy/share/export for the family/pharmacist handoff memo.
+4. Add share/export channels beyond the implemented copy action for the family/pharmacist handoff memo.
 5. Replace mock scenario tokens with real Matter/Thread gateway integration.
 6. Evaluate MedGemma as a second-layer explanation or privacy-enhanced local reasoning path.

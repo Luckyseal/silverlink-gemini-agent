@@ -1,1 +1,43 @@
-利用 2026 年最前沿的 **Agentic AI（代理型 AI）** 概念，通过“零手写代码”的开发模式，构建一个具有深厚社会意义的日本本地化应用。 ## 1. 参赛核心信息 * **项目名称**：**SilverLink Gemini Agent** (银发族全能数字生命助手) * **核心理念**：**“让 AI 适配人，而非让人学习手机”**。利用 Gemini 3 的多模态能力，消除日本老人与数字世界之间的最后一道鸿沟。 * **开发模式**：**100% AI-Driven Development**。你作为“架构师（Architect）”，利用 AI Coding Agents（如 Replit Agent / Cursor Composer）进行全自动开发。 ## 2. 详细技术方案 (The AI-Native Stack) ### A. 核心引擎：Gemini 3 Flash + MedGemma 1.5 * **多模态识别**：利用 **Gemini 3 Flash** 的高速处理能力，实时解析日本药盒、处方笺和各类说明书。 * **医学推理**：通过 API 调用 Google 2026 年发布的 **MedGemma 1.5** 模型（或通过 System Instruction 模拟），确保给出的服药建议具有医学级的严谨性。 ### B. 交互设计：Vibe Coding 风格 * **UI/UX**：彻底取消菜单栏，界面只有一个全屏的 **Gemini Live 波动球**。 * **操作逻辑**： 1. **看一看 (Vision)**：老人只需拿起药盒对准镜头，AI 自动开始播报。 2. **聊一聊 (Voice)**：支持日语方言（如津轻辩、关西腔）的语义识别，将老人的模糊表达转化为结构化数据。 3. **记一记 (Memory)**：利用 **Context Caching**，AI 记得老人昨天的身体状况，能发起有温度的主动询问。 ## 3. 8 小时极速开发流程 (AI-Only Coding Workflow) 在黑客松现场，你将演示如何以“管理员视角”通过指令完成代码： | 时间段 | 任务 (Task) | AI 指令示例 (Prompt Example) | |---|---|---| | **10:00 - 11:00** | **架构定义** | "使用 Replit Agent，建立一个基于 Flutter 的移动端原型。集成 Gemini API。UI 模仿 Google Live 的极简设计。" | | **11:00 - 13:00** | **核心逻辑注入** | "接入 Gemini 3 Flash 多模态接口。编写函数：当摄像头识别到特定文字时，调用 API 并将 JSON 结果转化为播报语音。" | | **14:00 - 16:00** | **本地化优化** | "优化日语敬语模块。确保 AI 对老人说话时使用温暖、尊重的 'Desu/Masu' 体，并适配老年人大字体模式。" | | **16:00 - 17:30** | **Demo 录制与调试** | "AI，请生成一组自动测试，模拟网络弱电环境下的语音断连处理逻辑。" | ## 4. 商业价值与评委加分项 (The Pitch) * **日本市场契合度**：引用数据（2026年日本70代老人手机普及率86%但使用障碍仍大），强调该方案是 **DX (Digital Transformation)** 在社会福祉领域的终极体现。 * **技术前瞻性**：强调项目使用了 **Agentic AI**。它不只是响应式工具，而是一个能主动感知、主动提醒的**代理 (Agent)**。 * **开发效率革命**：重点展示你作为“非编码管理者”，如何通过精准的 Prompt 设计和架构把控，在 8 小时内完成了传统团队 2 周的工作量。 ## 5. 报名建议 (Action Plan) 1. **申请理由**： > "作为在东京拥有 19 年 IT 管理经验的专业人士，我深感日本 DX 进程中老龄群体的缺位。我计划利用 Gemini 3 的多模态能力与 Agentic 工作流，通过 100% AI 自主编码模式，开发一套面向银发族的‘零交互’医疗生活助手。我希望以此展示：在 AI 原生时代，管理者的架构思维如何通过 Gemini 实现百倍级的效率跃迁。" > 2. **准备工作**： * 提前注册好 **Replit Pro** 或安装 **Cursor**。 * 准备一份含有日本常见药物（如 *Loxonin*、*降压药*）图片和日文处方笺的本地数据集。 * 现场携带实物药盒，作为 Demo 演示的杀手锏。 **你现在的顾虑是否已消除？我们可以针对某个具体的 Prompt（比如如何让 AI 给老人写出最温柔的日语回复）进行深度调试。**
+# SilverLink Current Solution
+
+## Positioning
+
+SilverLink Ambient Agent is an iOS-first Flutter MVP for **Ambient Family Intelligence** in Japan's aging society.
+
+It is not a diagnosis app, a medication reminder, or a replacement for family, doctors, or pharmacists. The demo shows the safest executable slice: Gemini reads a medicine/document image, responds in warm Japanese, turns uncertainty into a copyable family/pharmacist handoff memo, and demonstrates ambient semantic-event reasoning through a mocked Matter-compatible Scenario Injector.
+
+## What Is Implemented
+
+| Layer | Current MVP |
+| --- | --- |
+| Interface | One-screen ambient orb with large text and minimal controls |
+| Vision | Gemini stable `generateContent` path for medicine/document photos |
+| Voice | Google Cloud TTS Chirp 3 HD path with device TTS fallback |
+| Ambient agent loop | Scenario Injector emits semantic tokens such as `medication_missed` |
+| Privacy proof | Proactive scenario sends semantic tokens, not raw sensor streams |
+| Memory | Local SharedPreferences transcript and baseline notes |
+| Handoff | Medicine card plus copyable family/pharmacist memo |
+| Reliability | Local fixtures keep the image and scenario demo alive when API keys or network are unavailable |
+
+## Demo Claim
+
+Use this sentence:
+
+> We built the safest executable slice of an ambient family agent: seeing, explaining, remembering, and knowing when to hand off.
+
+Avoid claiming that SilverLink has fully implemented medical reasoning, Matter/Thread hardware, Cloud Run deployment, or realtime Gemini Live voice. Gemini Live is represented as an experimental probe and future realtime track; the stable stage path is Gemini generation plus TTS.
+
+## Why It Fits Gemini
+
+- Gemini multimodal understanding turns medicine boxes and documents into readable support.
+- Prompted Observe-Reason-Decide logic interprets semantic ambient tokens against a lightweight baseline.
+- Structured JSON output becomes a large-text medicine card and a human handoff memo.
+- The product uses Gemini as a reasoning layer inside an ambient relationship experience, not just as a chatbot.
+
+## Next Delivery Track
+
+1. Add a companion PWA or Cloud Run-hosted review build.
+2. Add backend-issued ephemeral tokens for the Gemini Live experimental track.
+3. Replace mocked semantic events with a real Matter/Thread gateway.
+4. Add share/export channels beyond the implemented copy action.
+5. Evaluate a future medical/privacy reasoning layer without making dosage or diagnosis decisions.

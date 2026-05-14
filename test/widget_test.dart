@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,6 +54,26 @@ void main() {
     expect(find.textContaining('medication_missed'), findsOneWidget);
   });
 
+  testWidgets('Scenario Injector has local fallback without API key', (
+    WidgetTester tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    await tester.pumpWidget(const SilverLinkApp());
+    await tester.pump(const Duration(milliseconds: 800));
+
+    if (tester.any(find.text('閉じる'))) {
+      await tester.tap(find.text('閉じる'));
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    await tester.longPress(find.byKey(const ValueKey('ambient-orb')));
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.tap(find.text('服薬サインなし'));
+    await tester.pump(const Duration(milliseconds: 800));
+
+    expect(find.textContaining('お薬箱'), findsOneWidget);
+    expect(find.text('API キーを設定してください'), findsNothing);
+  });
+
   testWidgets('demo image fallback renders medicine card without API key', (
     WidgetTester tester,
   ) async {
@@ -77,5 +98,52 @@ void main() {
     expect(find.textContaining('ロキソニン'), findsWidgets);
     expect(find.text('確認事項'), findsOneWidget);
     expect(find.text('家族・薬剤師への交接メモ'), findsOneWidget);
+  });
+
+  testWidgets('handoff memo copy button writes share text', (
+    WidgetTester tester,
+  ) async {
+    var copiedText = '';
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      SystemChannels.platform,
+      (MethodCall call) async {
+        if (call.method == 'Clipboard.setData') {
+          final args = call.arguments as Map<Object?, Object?>;
+          copiedText = args['text'].toString();
+        }
+        return null;
+      },
+    );
+    addTearDown(
+      () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        SystemChannels.platform,
+        null,
+      ),
+    );
+
+    SharedPreferences.setMockInitialValues({});
+    await tester.pumpWidget(const SilverLinkApp());
+    await tester.pump(const Duration(milliseconds: 800));
+
+    if (tester.any(find.text('閉じる'))) {
+      await tester.tap(find.text('閉じる'));
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    await tester.tap(find.byIcon(Icons.photo_camera_outlined));
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.dragFrom(const Offset(400, 560), const Offset(0, -180));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.textContaining('デモ画像'));
+    await tester.pump(const Duration(milliseconds: 800));
+
+    final copyButton = find.byKey(const ValueKey('copy-handoff-summary'));
+    await tester.ensureVisible(copyButton);
+    await tester.tap(copyButton);
+    await tester.pump();
+
+    expect(copiedText, contains('【今日確認したこと】'));
+    expect(copiedText, contains('【医師・薬剤師に確認すること】'));
+    expect(copiedText, contains('ロキソニン'));
+    expect(find.text('交接メモをコピーしました'), findsOneWidget);
   });
 }

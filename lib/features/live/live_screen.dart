@@ -22,7 +22,7 @@ import '../../features/vision/gemini_multimodal_service.dart';
 
 enum LivePhase { idle, listening, processing, speaking }
 
-/// Single-screen “Gemini Live orb” experience for SilverLink (demo).
+/// Single-screen ambient orb experience for SilverLink (demo).
 class LiveScreen extends StatefulWidget {
   const LiveScreen({super.key});
 
@@ -579,7 +579,11 @@ class _LiveScreenState extends State<LiveScreen>
   Future<void> _onAmbientEvent(AmbientSemanticEvent event) async {
     final guardianAi = _guardianAi;
     if (guardianAi == null) {
-      await _openSettings(auto: true);
+      setState(() {
+        _phase = LivePhase.processing;
+        _status = 'デモモードで環境シグナルを確認しています…';
+      });
+      await _applyAmbientDemoFallback(event);
       return;
     }
     setState(() {
@@ -1016,6 +1020,15 @@ class _LiveScreenState extends State<LiveScreen>
                   ),
                 ),
               ),
+              IconButton(
+                key: const ValueKey('copy-handoff-summary'),
+                tooltip: '交接メモをコピー',
+                onPressed: () => _copyHandoffSummary(summary),
+                icon: const Icon(
+                  Icons.copy_all_outlined,
+                  color: Color(0xFF80CBC4),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -1026,6 +1039,14 @@ class _LiveScreenState extends State<LiveScreen>
         ],
       ),
     );
+  }
+
+  Future<void> _copyHandoffSummary(HandoffSummary summary) async {
+    await Clipboard.setData(ClipboardData(text: summary.toShareText()));
+    if (!mounted) return;
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('交接メモをコピーしました')));
   }
 
   Widget _medicineCardRow(String label, String value) {

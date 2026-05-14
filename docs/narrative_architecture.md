@@ -79,7 +79,7 @@ SilverLink is a strong Gemini project because it combines:
 
 - **Multimodal understanding** for medicine boxes and documents
 - **Long-context style memory** for recent baseline and emotional continuity
-- **Realtime direction** through the Gemini Live experimental track
+- **Realtime direction** through the Gemini Live experimental probe and future track
 - **Reasoning** through Observe-Reason-Decide
 - **Function/tool direction** through Matter-compatible semantic event tokens
 - **Personalization** through warm Japanese voice and local baseline memory
