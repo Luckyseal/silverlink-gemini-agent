@@ -4,19 +4,21 @@ Flutter/iOS-first prototype for **SilverLink**, an **Ambient Family Intelligence
 
 ## Judge Quick Start
 
-**Best 90-second path**
+**Best Luma 2-minute solo path**
 
 1. Run `flutter run` or launch the iOS build.
-2. Tap **見る** → **デモ画像（同梱プレースホルダー）**.
-3. Show the large medicine card and **家族・薬剤師への交接メモ**.
-4. Tap the copy icon on the handoff memo.
-5. Long-press the orb → **Scenario Injector** → **服薬サインなし**.
-6. Say: "The proactive demo sends semantic tokens, not raw sensor streams."
-7. Point to the footer disclaimer: SilverLink supports understanding and handoff; it does not diagnose or change dosage.
+2. Open with: "SilverLink is Ambient Family Intelligence, not another senior app."
+3. Tap **見る** → **デモ画像（同梱プレースホルダー）** and show Gemini vision + structured medicine card.
+4. Trigger **温柔音声を試す** if configured to show Google Cloud Text-to-Speech / Chirp 3 HD voice quality.
+5. Show **家族・薬剤師への交接メモ** and tap the copy icon.
+6. Long-press the orb → **Scenario Injector** → **服薬サインなし**.
+7. Say: "The proactive demo sends semantic tokens, not raw sensor streams."
+8. Close on the footer disclaimer: SilverLink supports understanding and handoff; it does not diagnose or change dosage.
 
-The demo has local fixtures, so the medicine card and Scenario Injector still work when API keys or network are unavailable. With a valid Gemini key, the same flow uses Gemini stable generation for image and text reasoning. The Gemini Live item is an experimental probe and future realtime direction, not the guaranteed stage voice loop.
+The demo has local fixtures, so the medicine card and Scenario Injector still work when API keys or network are unavailable. With valid Google Cloud/Gemini credentials, the same flow shows Gemini stable generation for image/text reasoning and Google Cloud Text-to-Speech for warmer Japanese voice. The Gemini Live item is an experimental probe and future realtime direction, not the guaranteed stage voice loop.
 
 For a judge-facing one-page summary, see [docs/judge_brief.md](docs/judge_brief.md).
+For Luma event constraints and solo strategy, see [docs/luma_event_solo_alignment.md](docs/luma_event_solo_alignment.md).
 
 ## Prerequisites
 
@@ -72,6 +74,7 @@ flutter run
 
 - Application copy: [docs/application_materials.md](docs/application_materials.md)
 - Judge brief: [docs/judge_brief.md](docs/judge_brief.md)
+- Luma solo event alignment: [docs/luma_event_solo_alignment.md](docs/luma_event_solo_alignment.md)
 - Narrative architecture: [docs/narrative_architecture.md](docs/narrative_architecture.md)
 - Review notes: [docs/review_report.md](docs/review_report.md)
 - Hackathon demo alignment: [docs/hackathon_demo_alignment.md](docs/hackathon_demo_alignment.md)

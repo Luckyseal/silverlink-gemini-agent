@@ -22,18 +22,19 @@ function phone(slide, ctx, x, y) {
 export async function slide05(presentation, ctx) {
   const slide = presentation.slides.add();
   bg(slide, ctx);
-  kicker(slide, ctx, "90 SECOND DEMO", 72, 58, C.amber);
-  claim(slide, ctx, "Silence becomes a gentle conversation.", 72, 96, 760, 50);
-  note(slide, ctx, "The demo starts without menus: a medicine box on the table, a quiet orb, a respectful Japanese prompt, and a human handoff.", 76, 206, 744, 62, 21);
-  scene(slide, ctx, 76, 338, "0-15s", "Silence", "No tap, no search, no request for help.", C.coral);
-  scene(slide, ctx, 324, 338, "15-35s", "Ambient sense", "Medicine box, water cup, no confirmation.", C.blue);
-  scene(slide, ctx, 572, 338, "35-55s", "Gentle voice", "「一緒に確認しましょうか。」", C.mint);
-  scene(slide, ctx, 820, 338, "55-75s", "Memory", "Yesterday: dizzy. Today: go slowly.", C.amber, 176);
+  kicker(slide, ctx, "2 MIN SOLO DEMO", 72, 58, C.amber);
+  claim(slide, ctx, "A solo-safe slice judges can see in two minutes.", 72, 96, 800, 48);
+  note(slide, ctx, "One builder, one stable loop: ambient orb, Gemini vision, Google Cloud voice, semantic event, and human handoff.", 76, 206, 744, 62, 21);
+  scene(slide, ctx, 76, 338, "0-15s", "Category", "Ambient Family Intelligence, not another senior app.", C.coral);
+  scene(slide, ctx, 324, 338, "15-40s", "Gemini vision", "Medicine image becomes a structured card.", C.blue);
+  scene(slide, ctx, 572, 338, "40-65s", "Cloud voice", "Chirp 3 HD or device fallback.", C.mint);
+  scene(slide, ctx, 820, 338, "65-95s", "Signal", "semantic token,\nno raw stream.", C.amber, 176);
   ctx.addShape(slide, { x: 76, y: 548, w: 912, h: 50, fill: "#7CD6C418", line: ctx.line(C.mint, 1) });
-  ctx.addText(slide, { text: "75-90s | Family summary: no emergency; pharmacist confirmation recommended.", x: 104, y: 563, w: 856, h: 20, fontSize: 19, color: C.paper, bold: true, align: "center" });
+  ctx.addText(slide, { text: "95-120s | Copy handoff memo, then close: no diagnosis, no dosage change.", x: 104, y: 563, w: 856, h: 20, fontSize: 19, color: C.paper, bold: true, align: "center" });
   phone(slide, ctx, 1022, 140);
-  pill(slide, ctx, "not another senior app", 76, 620, 216, C.coral);
-  pill(slide, ctx, "ambient family intelligence layer", 312, 620, 300, C.mint);
+  pill(slide, ctx, "solo executable", 76, 620, 170, C.coral);
+  pill(slide, ctx, "Google Cloud visible", 266, 620, 210, C.blue);
+  pill(slide, ctx, "ambient family intelligence", 496, 620, 260, C.mint);
   footer(slide, ctx, 5);
   return slide;
 }

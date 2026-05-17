@@ -7,9 +7,9 @@ Expected thumbnail rhythm:
 2. Dark silence slide with four weak daily signals.
 3. Split insight: "another app" versus "ambient layer".
 4. Five verb interface: see, listen, remember, gently act, hand off.
-5. Demo storyboard with phone and family message.
+5. Two-minute solo demo storyboard with Google Cloud voice visible.
 6. Architecture stack from environment to safety.
-7. Gemini capability constellation.
+7. Google Cloud + Gemini capability constellation.
 8. Safety boundary matrix.
 9. Japan/global expansion map.
 10. Closing quote and strongest line.
@@ -18,5 +18,6 @@ Review gates:
 - Does it avoid the visual language of an elderly-care app or admin dashboard?
 - Can a judge retell the story from thumbnails alone?
 - Is Gemini visible as perception and reasoning, not just a chatbot?
+- Is Google Cloud visible enough for the event's eligibility rule?
 - Are safety boundaries clear and calm?
 - Are speaker notes short enough for shadow reading?

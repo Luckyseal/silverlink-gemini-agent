@@ -6,7 +6,7 @@ SilverLink is an ambient family intelligence layer that quietly notices changes 
 
 ## What
 
-SilverLink is a Flutter/iOS-first Gemini demo for Japan's aging society. It reduces the interface to one calm orb, then demonstrates three executable loops:
+SilverLink is a Flutter/iOS-first Google Cloud/Gemini demo for Japan's aging society. It reduces the interface to one calm orb, then demonstrates three executable loops:
 
 1. Medicine/document photo -> Gemini multimodal understanding -> large-text medicine card.
 2. Medicine uncertainty -> copyable family/pharmacist handoff memo.
@@ -22,25 +22,36 @@ The core sentence for the demo:
 
 > Technology should not replace relationships. It should quietly protect them.
 
-## How It Uses Gemini
+## How It Uses Google Cloud + Gemini
 
 | Capability | Demo proof |
 | --- | --- |
-| Multimodal understanding | Gemini reads medicine/document images and returns structured JSON. |
-| Reasoning loop | Prompts follow Observe-Reason-Decide for ambient events. |
-| Structured output | Gemini output becomes a medicine card and handoff memo. |
+| Gemini multimodal understanding | Gemini reads medicine/document images and returns structured JSON. |
+| Gemini reasoning loop | Prompts follow Observe-Reason-Decide for ambient events. |
+| Gemini structured output | Gemini output becomes a medicine card and handoff memo. |
+| Google Cloud Text-to-Speech | Chirp 3 HD Japanese voice path is used when configured, with device TTS fallback. |
 | Context and memory | Local baseline notes are included in future prompts. |
-| Realtime direction | Gemini Live is represented as an experimental probe, while the stable stage path uses Gemini generation plus TTS. |
+| Cloud Run direction | Backend-issued Live tokens and review deployment are the next delivery track, not overclaimed as current. |
 
-## 90-second Demo Path
+## Luma 2-minute Solo Demo Path
 
 1. Open the app and show the single orb.
-2. Tap **見る** and select **デモ画像（同梱プレースホルダー）**.
-3. Show the large medicine card and warm Japanese response.
-4. Show the **家族・薬剤師への交接メモ** and tap the copy icon.
-5. Long-press the orb, open **Scenario Injector**, and inject **服薬サインなし**.
-6. Explain that the proactive flow sends semantic tokens such as `medication_missed`, not raw sensor feeds.
-7. Point to the disclaimer and state that SilverLink supports understanding and handoff, not diagnosis or dosage changes.
+2. State the category: **Ambient Family Intelligence**, not another senior app.
+3. Tap **見る** and select **デモ画像（同梱プレースホルダー）**.
+4. Show Gemini vision and the structured large-text medicine card.
+5. Trigger the Google Cloud TTS / Chirp 3 HD voice path if configured.
+6. Show the **家族・薬剤師への交接メモ** and tap the copy icon.
+7. Long-press the orb, open **Scenario Injector**, and inject **服薬サインなし**.
+8. Explain that the proactive flow sends semantic tokens such as `medication_missed`, not raw sensor feeds.
+9. Point to the disclaimer and state that SilverLink supports understanding and handoff, not diagnosis or dosage changes.
+
+## Solo Strategy
+
+Use:
+
+> I am participating solo, so I chose a narrow, safe, executable slice: one ambient orb, one Gemini vision moment, one Google Cloud voice moment, one semantic event, and one human handoff.
+
+This makes the scope credible for a one-day build and keeps the demo stable under a two-minute limit.
 
 ## What Is Mocked
 

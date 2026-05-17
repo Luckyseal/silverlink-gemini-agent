@@ -3,6 +3,9 @@ Sources used:
 - User-provided "Winner-Level" SilverLink narrative, May 15 2026
   Primary source for final positioning, demo script, 10-slide structure, Japan/global packaging, and closing line.
 
+- Luma event page for Gemini AI Hackathon @Google Japan, checked May 17 2026
+  Used for event-specific constraints: solo allowed, two-minute live demos, Google Cloud integration required for prizes, judging criteria of Google Cloud usage, innovation, and completeness.
+
 - README.md
   Used for implemented MVP boundaries, judge quick start, and local demo reliability notes.
 

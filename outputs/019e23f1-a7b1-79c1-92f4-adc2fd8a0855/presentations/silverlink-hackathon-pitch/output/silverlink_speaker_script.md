@@ -2,6 +2,7 @@
 
 Deck: `silverlink-winner-level-pitch.pptx`  
 Target length: 3 minutes  
+Event demo length: 2 minutes  
 Backup length: 90 seconds  
 Practice style: shadow reading, short sentences, clear pauses
 
@@ -75,17 +76,15 @@ It does not interrupt. It does not judge. It simply notices earlier.
 Time: 28 seconds
 
 **Say:**
-Here is the demo.
+Here is the Luma demo path.
 
-The older adult does not open a complex app. A medicine box is on the table.
+I am participating solo, so I chose a narrow, safe, executable slice.
 
-SilverLink notices the quiet signal and says in Japanese:
+In two minutes, judges can see the orb, Gemini vision, Google Cloud voice, a semantic event, and a human handoff.
 
-お薬を一緒に確認しましょうか。
+That is the whole point: small enough to be reliable, but complete enough to prove the agent loop.
 
-Then Gemini reads what can be safely read, creates a large-text card, and prepares a family or pharmacist summary.
-
-**Chinese cue:** 如果现场演示，就在这里切 app。日文句子慢读，展示温和感。
+**Chinese cue:** 这页强调 solo 参赛不是弱点，是范围控制能力。
 
 ### Slide 6 - Architecture
 Time: 24 seconds
@@ -103,19 +102,19 @@ The final action is not an AI decision. It is a human handoff.
 
 **Chinese cue:** 这里是评委技术判断页。要说清楚方向：signals -> Gemini -> agents -> humans。
 
-### Slide 7 - Why Gemini
+### Slide 7 - Why Google Cloud + Gemini
 Time: 24 seconds
 
 **Say:**
-Gemini is not used as a chatbot.
+For this event, Google Cloud integration is not optional. It is a judging requirement.
 
-It is the perception and reasoning layer behind the ambient agent.
+SilverLink makes Google Cloud visible in the demo.
 
-Vision understands medicine boxes and documents. Voice creates low-friction conversation. Structured output keeps cards and summaries stable.
+Gemini handles vision, reasoning, and structured output. Google Cloud Text-to-Speech gives the Japanese voice a warmer tone.
 
-This is where the demo becomes an agent, not a chat UI.
+Cloud Run and Live tokens are the next delivery track, but today the visible proof is Gemini plus cloud voice.
 
-**Chinese cue:** 强调不是 chatbot，是 perception and reasoning layer。
+**Chinese cue:** 这页必须讲出 Google Cloud，因为活动规则写明缺少集成会失去获奖资格。
 
 ### Slide 8 - Safety
 Time: 22 seconds
@@ -154,6 +153,70 @@ Technology should not replace relationships. It should quietly protect them.
 She never learned the app. The app learned how to care.
 
 **Chinese cue:** 最后两句慢读，停顿，收住。
+
+## Luma 2-Minute Solo Demo
+
+Use this version for the live demo. It is designed for one builder and the event's 2-minute limit.
+
+### 0:00-0:15 - Category
+
+**Say:**
+SilverLink is not another senior app. It is Ambient Family Intelligence for aging societies.
+
+Families do care. But small changes happen quietly.
+
+**Action:**
+Show the single orb.
+
+### 0:15-0:40 - Gemini Vision
+
+**Say:**
+The older adult does not need to learn a complex app. They can show a medicine box.
+
+Gemini reads what can be safely read and returns structured output.
+
+**Action:**
+Tap **見る** and open the demo medicine image. Show the large-text card.
+
+### 0:40-1:00 - Google Cloud Voice
+
+**Say:**
+Voice quality matters here. A warm Japanese voice is part of trust.
+
+This path uses Google Cloud Text-to-Speech, with a safe device fallback.
+
+**Action:**
+Trigger **温柔音声を試す** if configured, or point to the setting.
+
+### 1:00-1:25 - Semantic Event
+
+**Say:**
+Now I simulate the ambient layer.
+
+The proactive path sends semantic tokens, not raw sensor streams.
+
+**Action:**
+Long-press the orb. Open **Scenario Injector**. Choose **服薬サインなし**.
+
+### 1:25-1:45 - Human Handoff
+
+**Say:**
+SilverLink does not pretend to be a doctor.
+
+It turns uncertainty into a family or pharmacist handoff.
+
+**Action:**
+Show **家族・薬剤師への交接メモ** and tap copy.
+
+### 1:45-2:00 - Safety Close
+
+**Say:**
+SilverLink does not diagnose. It does not change dosage.
+
+Technology should not replace relationships. It should quietly protect them.
+
+**Action:**
+Point to the disclaimer. Stop.
 
 ## 90-Second Version
 
@@ -254,21 +317,22 @@ Chinese cue:
 ### Chunk 5
 
 Slow:
-Gemini is not used / as a chatbot. /
-It is the perception / and reasoning layer. /
+Google Cloud integration / is not optional. /
+Gemini is the perception / and reasoning layer. /
 
 Natural:
-Gemini is not used as a chatbot. It is the perception and reasoning layer.
+Google Cloud integration is not optional. Gemini is the perception and reasoning layer.
 
 Stress:
-not a chatbot, perception, reasoning layer
+Google Cloud, Gemini, perception, reasoning layer
 
 Pronunciation:
+- integration = in-tuh-GRAY-shun
 - perception = per-SEP-shun
 - reasoning = REE-zuh-ning
 
 Chinese cue:
-这句一定要讲清楚，评委会记住。
+这句一定要讲清楚，因为活动规则要求 Google Cloud。
 
 ### Chunk 6
 
@@ -337,7 +401,13 @@ No. It is an Ambient Family Intelligence layer. The app surface is intentionally
 No. SilverLink does not diagnose, prescribe, or change dosage. It reads, explains uncertainty, and hands off to humans.
 
 **Why Gemini?**  
-Gemini gives one coherent stack: vision, voice, reasoning, function calling, context memory, and structured output.
+Gemini gives the perception and reasoning layer: vision, reasoning, context, and structured output.
+
+**Where is Google Cloud used?**  
+In the visible demo path: Gemini for multimodal understanding and Google Cloud Text-to-Speech / Chirp 3 HD for warmer Japanese voice when configured.
+
+**Why solo?**  
+Because a narrow, safe, executable slice is more convincing than a broad platform promise. One builder can finish it, demo it, and explain the safety boundary.
 
 **What is the strongest demo moment?**  
 Restraint. The agent understands the world, then knows when to step back and reconnect people.
