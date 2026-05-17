@@ -1,0 +1,31 @@
+Task mode: create / winner-level upgrade
+Primary deck-profile: product-platform
+Secondary profile gates: engineering-platform, strategy-leadership
+
+Required proof objects:
+- Human-centered problem frame: "The most dangerous signal is silence."
+- Product system map: Environment signals -> Gemini multimodal understanding -> Agent core -> Human handoff -> Safety layer.
+- Demo scene storyboard: silence, ambient sensing, gentle Japanese voice, memory, family/pharmacist handoff.
+- Gemini stack slide: vision, live voice, function calling, context memory, structured output.
+- Safety slide: no diagnosis, no dosage change, human escalation, privacy-first memory.
+- Japan-first / global-next positioning slide.
+
+Source / asset requirements:
+- Use the user's winner-level narrative as the primary source of truth for this revision.
+- Preserve repo truth from README, docs/narrative_architecture.md, docs/hackathon_demo_alignment.md, docs/judge_brief.md, and the implemented MVP boundaries.
+- No external logos or unofficial Google/Gemini marks. Use text labels and system diagrams.
+
+Brand authenticity constraints:
+- SilverLink wordmark is text-only and internal.
+- Gemini is referenced by name and capability, not represented by an invented logo.
+- UI is a calm ambient orb and large-text cards, not a dashboard or senior-care admin app.
+
+Profile-specific QA gates:
+- The deck must never read as "AI elderly-care app", "senior health app", "medication reminder", or "monitoring dashboard".
+- Architecture labels must be concrete enough to map back to the implemented MVP and planned edge gateway.
+- Every slide must carry the higher-level thesis: Ambient Family Intelligence for aging societies.
+- English speaker notes must be short, pronounceable, and suitable for shadow reading.
+
+Known missing inputs:
+- No final demo video asset supplied.
+- No official hackathon or Gemini visual identity assets supplied.
