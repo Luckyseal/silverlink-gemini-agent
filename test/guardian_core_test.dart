@@ -94,19 +94,39 @@ void main() {
     },
   );
 
-  test('Google TTS request uses Chirp 3 HD warm Japanese voice controls', () {
+  test('Google TTS request uses senior-friendly Neural2 SSML controls', () {
     final request = GoogleCloudTtsService.buildWarmJapaneseRequest(
       'おはようございます。今日は少し寒いですね。',
-      voiceName: 'ja-JP-Chirp3-HD-Aoede',
+      voiceName: 'ja-JP-Neural2-B',
     );
 
     expect(request['voice'], {
       'languageCode': 'ja-JP',
-      'name': 'ja-JP-Chirp3-HD-Aoede',
+      'name': 'ja-JP-Neural2-B',
     });
-    expect(request['input'], containsPair('prompt', contains('warm')));
-    expect(request['input'], containsPair('markup', contains('[pause short]')));
+    expect(request['input'], containsPair('ssml', contains('<prosody')));
+    expect(request['input'], containsPair('ssml', contains('rate="82%"')));
+    expect(request['input'], containsPair('ssml', contains('<break')));
     expect(request['audioConfig'], containsPair('audioEncoding', 'MP3'));
-    expect(request['audioConfig'], containsPair('speakingRate', 0.88));
+    expect(request['audioConfig'], containsPair('speakingRate', 1.0));
+    expect(request['audioConfig'], containsPair('pitch', -2.5));
+    expect(request['audioConfig'], containsPair('volumeGainDb', 3.5));
+    expect(
+      request['audioConfig'],
+      containsPair('effectsProfileId', [
+        'small-bluetooth-speaker-class-device',
+      ]),
+    );
+  });
+
+  test('Google TTS request keeps Chirp3 HD markup pause controls', () {
+    final request = GoogleCloudTtsService.buildWarmJapaneseRequest(
+      'ゆっくり確認しましょう。',
+      voiceName: 'ja-JP-Chirp3-HD-Kore',
+    );
+
+    expect(request['input'], containsPair('markup', contains('[pause long]')));
+    expect(request['audioConfig'], containsPair('speakingRate', 0.78));
+    expect(request['audioConfig'], isNot(contains('effectsProfileId')));
   });
 }

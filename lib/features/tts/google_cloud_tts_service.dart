@@ -74,38 +74,69 @@ class GoogleCloudTtsService {
     String text, {
     required String voiceName,
   }) {
+    final isChirp3Hd = voiceName.contains('Chirp3-HD');
     return {
-      'input': {
-        'markup': toWarmMarkup(text),
-        'prompt':
-            'Speak in natural Japanese keigo with a warm, gentle, emotionally present tone. '
-            'Sound like a kind late-night diner owner speaking softly to an elderly neighbor. '
-            'Avoid a cold announcer voice.',
-      },
+      'input': isChirp3Hd
+          ? {'markup': toWarmMarkup(text)}
+          : {'ssml': toSeniorFriendlySsml(text)},
       'voice': {'languageCode': 'ja-JP', 'name': voiceName},
-      'audioConfig': {
-        'audioEncoding': 'MP3',
-        'speakingRate': 0.88,
-        'pitch': -1.0,
-        'volumeGainDb': 0.0,
-        'effectsProfileId': ['handset-class-device'],
-      },
+      'audioConfig': isChirp3Hd
+          ? {
+              'audioEncoding': 'MP3',
+              'speakingRate': 0.78,
+              'pitch': -0.5,
+              'volumeGainDb': 0.0,
+            }
+          : {
+              'audioEncoding': 'MP3',
+              'speakingRate': 1.0,
+              'pitch': -2.5,
+              'volumeGainDb': 3.5,
+              'effectsProfileId': ['small-bluetooth-speaker-class-device'],
+            },
     };
   }
 
+  static String toSeniorFriendlySsml(String text) {
+    final body = _normalize(text);
+    if (body.isEmpty) return '<speak></speak>';
+    return '<speak><prosody rate="82%" pitch="-2st" volume="loud">${_toSeniorBreaks(_escapeSsml(body))}</prosody></speak>';
+  }
+
   static String toWarmMarkup(String text) {
-    final normalized = text
-        .replaceAll('\n', ' ')
-        .replaceAll(RegExp(r'\s+'), ' ')
-        .trim();
+    final normalized = _normalize(text);
     if (normalized.isEmpty) return '';
     return normalized
-        .replaceAll('。', '。[pause short] ')
+        .replaceAll('。', '。[pause long] ')
         .replaceAll('、', '、[pause short] ')
-        .replaceAll('？', '？[pause short] ')
-        .replaceAll('?', '？[pause short] ')
-        .replaceAll('！', '。[pause short] ')
-        .replaceAll('!', '。[pause short] ')
+        .replaceAll('？', '？[pause long] ')
+        .replaceAll('?', '？[pause long] ')
+        .replaceAll('！', '！[pause long] ')
+        .replaceAll('!', '！[pause long] ')
+        .trim();
+  }
+
+  static String _normalize(String text) {
+    return text.replaceAll('\n', ' ').replaceAll(RegExp(r'\s+'), ' ').trim();
+  }
+
+  static String _escapeSsml(String text) {
+    return text
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&apos;');
+  }
+
+  static String _toSeniorBreaks(String text) {
+    return text
+        .replaceAll('。', '。<break time="650ms"/>')
+        .replaceAll('、', '、<break time="320ms"/>')
+        .replaceAll('？', '？<break time="650ms"/>')
+        .replaceAll('?', '？<break time="650ms"/>')
+        .replaceAll('！', '！<break time="650ms"/>')
+        .replaceAll('!', '！<break time="650ms"/>')
         .trim();
   }
 

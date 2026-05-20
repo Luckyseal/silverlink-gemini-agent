@@ -40,7 +40,7 @@ class AppConfig {
 
   static const String defaultGoogleTtsVoice = String.fromEnvironment(
     'GOOGLE_TTS_VOICE',
-    defaultValue: 'ja-JP-Chirp3-HD-Aoede',
+    defaultValue: 'ja-JP-Neural2-B',
   );
 
   final String apiKey;

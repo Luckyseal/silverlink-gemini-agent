@@ -32,3 +32,15 @@
 - Scenario tokens are mocked for MVP. If Gemini/API keys are unavailable, the Scenario Injector uses local fixtures to preserve the stage agent loop.
 - Real Matter/Thread device integration remains future work.
 - This is not a medical device and must not provide diagnosis, treatment instruction, or medication dosage decisions.
+
+## Post-Mortem & Lessons Learned (Hackathon Execution Phase)
+
+### 1. TTS API Payload Strictness & Silent Fallback Trap
+- **Issue**: The Google Cloud TTS API (`v1beta1`) rejected our payload because we included experimental Gemini-like fields (`markup` and `prompt`) inside the `input` object. This resulted in a HTTP 400.
+- **Trap**: The UI layer wrapped the TTS call in a generic `try-catch` that silently fell back to the local device's `flutter_tts`. This masked the API failure, leading to a degraded UX (a harsh mechanical voice) instead of an immediate developer error.
+- **Lesson**: Cloud APIs have strict schemas that do not cross over (e.g., Gemini prompts do not work in standard GCP TTS). Furthermore, silent fallbacks are dangerous during development; network/API failures must be logged or surfaced visibly before falling back to local mocks.
+
+### 2. Ambient UI vs. Tool App UI (Cognitive Dissonance)
+- **Issue**: Initially, the UI featured explicit "See" (見る) and "Speak" (話す) buttons, and rendered the complex "Handoff to Pharmacist/Family" text card directly on the elder's screen.
+- **Trap**: This broke the "Ambient Intelligence" positioning. The app felt like a traditional utility tool rather than a "quiet family presence layer". Displaying complex medical handoffs to the elder also increased their cognitive load unnecessarily.
+- **Lesson**: "Human-centered escalation" means routing uncertainty to the *right* human in the background. The elder's UI must remain absolutely minimal (e.g., hidden gestures on the Orb). The complex handoff data (JSON) must be routed silently to the family via background channels (mocked in our demo via a Top Notification Banner + `url_launcher` to iMessage). When building Ambient AI, UI reduction is as important as AI generation.

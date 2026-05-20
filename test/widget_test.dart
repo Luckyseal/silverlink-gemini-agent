@@ -32,7 +32,8 @@ void main() {
 
     expect(find.text('Google Chirp 3 HD 音声'), findsOneWidget);
     expect(find.text('GOOGLE_TTS_API_KEY / OAuth token'), findsOneWidget);
-    expect(find.text('TTS voice（例: ja-JP-Chirp3-HD-Aoede）'), findsOneWidget);
+    expect(find.text('Demo voice preset'), findsOneWidget);
+    expect(find.text('TTS voice（推奨: ja-JP-Neural2-B）'), findsOneWidget);
     expect(find.text('温柔音声を試す'), findsOneWidget);
   });
 
@@ -94,10 +95,10 @@ void main() {
     await tester.pump(const Duration(milliseconds: 800));
 
     expect(find.byKey(const ValueKey('medicine-card')), findsOneWidget);
-    expect(find.byKey(const ValueKey('handoff-card')), findsOneWidget);
+    expect(find.byKey(const ValueKey('handoff-card')), findsNothing);
     expect(find.textContaining('ロキソニン'), findsWidgets);
     expect(find.text('確認事項'), findsOneWidget);
-    expect(find.text('家族・薬剤師への交接メモ'), findsOneWidget);
+    expect(find.byKey(const ValueKey('open-handoff-summary')), findsOneWidget);
   });
 
   testWidgets('handoff memo copy button writes share text', (
@@ -135,6 +136,14 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
     await tester.tap(find.textContaining('デモ画像'));
     await tester.pump(const Duration(milliseconds: 800));
+
+    final openButton = find.byKey(const ValueKey('open-handoff-summary'));
+    await tester.ensureVisible(openButton);
+    await tester.tap(openButton);
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const ValueKey('handoff-card')), findsOneWidget);
+    expect(find.text('家族・薬剤師への交接メモ'), findsOneWidget);
 
     final copyButton = find.byKey(const ValueKey('copy-handoff-summary'));
     await tester.ensureVisible(copyButton);

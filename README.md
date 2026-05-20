@@ -36,12 +36,12 @@ flutter run \
   --dart-define=GEMINI_API_KEY=YOUR_KEY \
   --dart-define=GEMINI_MODEL=gemini-2.0-flash \
   --dart-define=GOOGLE_TTS_API_KEY=YOUR_GOOGLE_CLOUD_TTS_KEY \
-  --dart-define=GOOGLE_TTS_VOICE=ja-JP-Chirp3-HD-Aoede
+  --dart-define=GOOGLE_TTS_VOICE=ja-JP-Neural2-B
 ```
 
 **Option B — アプリ内設定**
 
-初回起動で設定ダイアログが開きます。右上の「設定」からも変更可能。値は端末の SharedPreferences に保存されます（デモ用途）。文字サイズ（本文・読み上げ対象）と Google Chirp 3 HD voice（推奨: `ja-JP-Chirp3-HD-Aoede`）もここで変更できます。
+初回起動で設定ダイアログが開きます。右上の「設定」からも変更可能。値は端末の SharedPreferences に保存されます（デモ用途）。文字サイズ（本文・読み上げ対象）と Google TTS voice（シニア demo 推奨: `ja-JP-Neural2-B`。必要なら設定画面で Neural2 / Chirp3 HD を A/B 試聴）もここで変更できます。
 
 ## Demo script（録画 / レビュー用）
 
