@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 import '../../core/prompts/japanese_prompts.dart';
+import '../ambient/ambient_semantic_event.dart';
+import '../medicine/medicine_card.dart';
 
 class GeminiJsonReply {
   GeminiJsonReply({
@@ -11,21 +13,21 @@ class GeminiJsonReply {
     required this.followUpJp,
     required this.memoryNoteJp,
     required this.rawText,
+    this.medicineCard,
   });
 
   final String replyJp;
   final String followUpJp;
   final String memoryNoteJp;
   final String rawText;
+  final MedicineCard? medicineCard;
 }
 
 /// Calls Gemini with multimodal or text-only content; parses JSON-shaped replies.
 class GeminiMultimodalService {
-  GeminiMultimodalService({
-    required String apiKey,
-    required String model,
-  })  : _apiKey = apiKey,
-        _model = model;
+  GeminiMultimodalService({required String apiKey, required String model})
+    : _apiKey = apiKey,
+      _model = model;
 
   final String _apiKey;
   final String _model;
@@ -60,6 +62,15 @@ class GeminiMultimodalService {
     return _generateSingle(content);
   }
 
+  Future<GeminiJsonReply> ambientEvent({
+    required AmbientSemanticEvent event,
+    required String memoryBlock,
+  }) {
+    final prompt = JapanesePrompts.ambientEventPrompt(event, memoryBlock);
+    final content = Content('user', [TextPart(prompt)]);
+    return _generateSingle(content);
+  }
+
   Future<GeminiJsonReply> _generateSingle(Content content) async {
     const delaysMs = [400, 1200, 2800];
     Object? lastError;
@@ -71,7 +82,7 @@ class GeminiMultimodalService {
         if (text == null || text.trim().isEmpty) {
           throw StateError('Empty response from model');
         }
-        return _parseReply(text.trim());
+        return parseReply(text.trim());
       } catch (e) {
         lastError = e;
         if (attempt == delaysMs.length) break;
@@ -81,7 +92,7 @@ class GeminiMultimodalService {
     throw lastError ?? StateError('Gemini request failed');
   }
 
-  GeminiJsonReply _parseReply(String rawText) {
+  static GeminiJsonReply parseReply(String rawText) {
     final extracted = _extractJsonObject(rawText);
     if (extracted == null) {
       return GeminiJsonReply(
@@ -89,6 +100,7 @@ class GeminiMultimodalService {
         followUpJp: '',
         memoryNoteJp: '',
         rawText: rawText,
+        medicineCard: null,
       );
     }
     try {
@@ -96,8 +108,10 @@ class GeminiMultimodalService {
       return GeminiJsonReply(
         replyJp: (map['reply_jp'] ?? map['replyJp'] ?? '').toString(),
         followUpJp: (map['follow_up_jp'] ?? map['followUpJp'] ?? '').toString(),
-        memoryNoteJp: (map['memory_note_jp'] ?? map['memoryNoteJp'] ?? '').toString(),
+        memoryNoteJp: (map['memory_note_jp'] ?? map['memoryNoteJp'] ?? '')
+            .toString(),
         rawText: rawText,
+        medicineCard: MedicineCard.fromJson(map),
       );
     } catch (_) {
       return GeminiJsonReply(
@@ -105,11 +119,12 @@ class GeminiMultimodalService {
         followUpJp: '',
         memoryNoteJp: '',
         rawText: rawText,
+        medicineCard: null,
       );
     }
   }
 
-  String? _extractJsonObject(String text) {
+  static String? _extractJsonObject(String text) {
     final fence = RegExp(r'```(?:json)?\s*([\s\S]*?)```', multiLine: true);
     final match = fence.firstMatch(text);
     final candidate = (match?.group(1) ?? text).trim();

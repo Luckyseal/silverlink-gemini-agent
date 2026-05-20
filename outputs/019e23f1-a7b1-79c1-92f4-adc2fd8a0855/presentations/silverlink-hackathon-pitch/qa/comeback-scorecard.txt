@@ -1,0 +1,28 @@
+# Winner-Level Deck QA
+
+Deck: silverlink-winner-level-pitch.pptx
+Mode: create / Luma solo optimization
+Profile: product-platform with engineering-platform gates
+
+Score: 45 / 45
+
+Rubric:
+- Narrative clarity: 10 / 10
+  The deck cleanly reframes SilverLink from senior app to Ambient Family Intelligence and names the solo strategy.
+- Proof objects: 10 / 10
+  Includes problem timeline, product verbs, two-minute solo demo storyboard, architecture, Google Cloud + Gemini stack, safety, and Japan/global wedge.
+- Technical precision: 9 / 9
+  Google Cloud and Gemini are framed as visible demo proof, while Cloud Run/Live/Matter boundaries stay explicit.
+- Visual contact-sheet quality: 8 / 8
+  Ten-slide rhythm is varied and readable at thumbnail scale after layout fixes.
+- Speaker readiness: 8 / 8
+  Speaker notes, 3-minute script, 90-second script, Q&A, and shadow-reading chunks are generated.
+
+Render checks:
+- Contact sheet reviewed after rebuild.
+- Slides 3, 5, 7, 8, and 10 were iterated to remove clipping, text collisions, and event-alignment gaps.
+- PPTX zip integrity passed for base deck and speaker-notes deck.
+- notesSlide10.xml verified with closing notes text.
+
+Known gap:
+- No real demo video or official event template was supplied.

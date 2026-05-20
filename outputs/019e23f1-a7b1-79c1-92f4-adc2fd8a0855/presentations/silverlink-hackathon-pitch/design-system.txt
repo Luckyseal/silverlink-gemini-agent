@@ -1,0 +1,39 @@
+# Design System
+
+Canvas: 16:9, 1280 x 720.
+
+Visual language:
+- Calm product keynote, not a healthcare dashboard.
+- One recurring ambient orb to signal quiet presence.
+- Big human thesis first, then concrete system proof.
+- Large Japanese UI fragments for demo credibility.
+- Architecture is lane-based and explicit: signals, Gemini, agents, actions, safety.
+
+Color:
+- Ink #10141C
+- Ink 2 #141B26
+- Deep panel #1B2431
+- Paper #F4EFE5
+- Mint #7CD6C4
+- Amber #F2C14E
+- Coral #F08A77
+- Blue #8CA7FF
+- White #FFFFFF
+
+Type:
+- Hero claims: 44-58 px, high contrast.
+- Body: 18-22 px, short lines.
+- Mono labels: 11-13 px for system tags and slide numbers.
+- Japanese copy: large and sparse, never dashboard-like.
+
+Layout rhythm:
+- 1: title / final positioning.
+- 2: problem as silence.
+- 3: insight, technology adapts to people.
+- 4: product interface verbs.
+- 5: 90-second demo storyboard.
+- 6: architecture.
+- 7: why Gemini.
+- 8: safety boundaries.
+- 9: Japan first, global next.
+- 10: closing line.

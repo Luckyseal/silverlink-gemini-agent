@@ -1,0 +1,18 @@
+# Claim Spine
+
+1. SilverLink is Ambient Family Intelligence for aging societies.
+2. The most dangerous signal is silence.
+3. Older adults do not need another app to learn; technology should adapt to them.
+4. One ambient interface can see, listen, remember, gently act, and hand off to humans.
+5. The two-minute solo demo shows one executable slice: orb, Gemini vision, Google Cloud voice, semantic event, handoff.
+6. Google Cloud + Gemini provide the visible stack behind the agent.
+7. The agent architecture separates perception, memory, triage, communication, action, and safety.
+8. Safety is a product principle: no diagnosis, no dosage change, human escalation, privacy-first memory.
+9. Japan is the first wedge; the global opportunity is remote family care as an ambient relationship layer.
+10. Technology should not replace relationships. It should quietly protect them.
+
+Tone guardrails:
+- Do not say AI elderly-care app, senior health app, medication reminder, monitoring dashboard, or care SaaS.
+- Say Ambient Family Intelligence, quiet presence, silent signal detection, gentle intelligence, and human handoff.
+- For the Luma event, say Google Cloud and two-minute solo demo explicitly.
+- Keep the demo emotionally clear and technically bounded.

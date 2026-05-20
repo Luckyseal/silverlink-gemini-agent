@@ -6,4 +6,7 @@ abstract final class SilverLinkTokens {
   static const double statusFontSize = 18;
   static const double disclaimerFontSize = 13;
   static const double orbDiameter = 200;
+  static const double cardRadius = 8;
+  static const double actionButtonSize = 56;
+  static const double pagePadding = 20;
 }

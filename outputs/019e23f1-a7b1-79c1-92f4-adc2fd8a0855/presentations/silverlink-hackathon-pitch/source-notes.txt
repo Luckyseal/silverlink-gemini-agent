@@ -1,0 +1,34 @@
+Sources used:
+
+- User-provided "Winner-Level" SilverLink narrative, May 15 2026
+  Primary source for final positioning, demo script, 10-slide structure, Japan/global packaging, and closing line.
+
+- Luma event page for Gemini AI Hackathon @Google Japan, checked May 17 2026
+  Used for event-specific constraints: solo allowed, two-minute live demos, Google Cloud integration required for prizes, judging criteria of Google Cloud usage, innovation, and completeness.
+
+- README.md
+  Used for implemented MVP boundaries, judge quick start, and local demo reliability notes.
+
+- docs/narrative_architecture.md
+  Used for Ambient Family Intelligence framing, multi-agent architecture, and non-monitoring language.
+
+- docs/hackathon_demo_alignment.md
+  Used for Gemini capability mapping, demo-critical path, safety guardrails, and fallback path.
+
+- docs/judge_brief.md
+  Used for judge-facing summary and differentiation.
+
+- lib/features/live/live_screen.dart
+  Used for actual MVP capabilities: ambient orb, Gemini image understanding, local fixture fallback, Scenario Injector, and copyable handoff summary.
+
+- test/widget_test.dart
+  Used for confidence that the handoff memo and local injector fallback are covered.
+
+Identity assets:
+- No external or official logos embedded. SilverLink and Gemini are text labels only.
+
+Claims constrained:
+- SilverLink is positioned as Ambient Family Intelligence, not a senior-care app or medication tool.
+- Gemini Live is framed as the target low-latency voice experience; the implemented MVP keeps a stable demo path with TTS/fallback.
+- Matter/edge signals are framed as semantic event input in the demo, not completed physical hardware integration.
+- Medical language is bounded to reading, explanation, risk prompting, and human handoff. No diagnosis, dosage, or prescription change.
